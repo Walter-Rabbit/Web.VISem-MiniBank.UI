@@ -1,0 +1,7 @@
+@media (min-width: 1200px) {
+  img.header__logo {
+    margin-top: 5px;
+    height: 40px;
+    width: 40px;
+  }
+}

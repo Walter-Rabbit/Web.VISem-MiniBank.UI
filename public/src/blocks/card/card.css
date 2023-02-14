@@ -1,0 +1,16 @@
+div.card {
+  border: 1px outset #000000;
+  border-radius: 10px;
+  box-shadow: 0 2px 1px #101010;
+  background-color: #F8F9FA;
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: 50px 50px;
+  margin-bottom: 5px;
+  height: 120px;
+  transition: all 150ms ease;
+}
+
+div.card:hover {
+  background-color: #F0F0F0;
+}

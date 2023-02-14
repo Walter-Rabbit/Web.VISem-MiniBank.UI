@@ -1,0 +1,6 @@
+ul.navigation {
+  padding: 0;
+  flex-wrap: wrap;
+  list-style-type: none;
+  display: flex;
+}

@@ -1,0 +1,8 @@
+@media (min-width: 1200px) {
+  ul.navigation {
+    margin-bottom: 0;
+    justify-content: center;
+    flex-direction: row;
+    margin-top: 20px;
+  }
+}

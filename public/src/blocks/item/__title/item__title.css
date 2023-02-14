@@ -1,0 +1,8 @@
+p.item__title {
+  margin-top: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  min-width: 200px;
+  margin-left: 10px;
+  font-family: Verdana;
+}

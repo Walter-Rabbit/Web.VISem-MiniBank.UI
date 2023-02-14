@@ -1,0 +1,4 @@
+div.rights {
+  display: flex;
+  flex-direction: column;
+}

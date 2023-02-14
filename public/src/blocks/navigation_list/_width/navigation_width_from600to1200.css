@@ -1,0 +1,7 @@
+@media (max-width: 1200px) and (min-width: 600px) {
+  ul.navigation {
+    margin-bottom: 10px;
+    margin-top: 5px;
+    justify-content: center;
+  }
+}

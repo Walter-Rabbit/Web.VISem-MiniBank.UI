@@ -1,0 +1,8 @@
+body.body {
+  background-color: #ffffff;
+  width: 100%;
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}

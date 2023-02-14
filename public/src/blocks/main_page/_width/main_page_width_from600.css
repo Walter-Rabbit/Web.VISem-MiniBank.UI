@@ -1,0 +1,7 @@
+@media (min-width: 600px) {
+  main {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}

@@ -1,0 +1,9 @@
+@media (min-width: 1200px) {
+  ul.function_list {
+    margin-top: 55px;
+    max-height: 75%;
+    width: 250px;
+    justify-content: left;
+    flex-direction: column;
+  }
+}

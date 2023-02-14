@@ -1,0 +1,6 @@
+@media (max-width: 1200px)  and (min-width: 600px) {
+  ul.function_list {
+    margin-top: 65px;
+    justify-content: center;
+  }
+}

@@ -1,0 +1,7 @@
+@media (max-width: 1200px) {
+  div.item {
+    min-width: 450px;
+    height: 140px;
+    grid-template-columns: 155px auto;
+  }
+}

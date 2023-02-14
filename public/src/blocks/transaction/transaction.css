@@ -1,0 +1,19 @@
+div.transaction {
+  margin-top: 0;
+  margin-bottom: 5px;
+  border: 1px outset #000000;
+  background-color: #F8F9FA;
+  border-radius: 5px;
+  box-shadow: 0 2px 1px #101010;
+  height: 100px;
+  width: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  transition: all 150ms ease;
+}
+
+div.transaction:hover {
+  background-color: #F0F0F0;
+}

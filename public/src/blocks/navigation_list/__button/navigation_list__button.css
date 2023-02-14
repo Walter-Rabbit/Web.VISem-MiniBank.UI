@@ -1,0 +1,26 @@
+button.navigation_list__button {
+  background-color: #ffffff;
+  color: black;
+  position: relative;
+  margin: 1px;
+  border-bottom: #ffb300 solid;
+  box-shadow: 0 1px #101010;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-radius: 5px;
+  width: 210px;
+  display: inline-block;
+  vertical-align: bottom;
+  font-weight: bold;
+  height: 22px;
+  transition: all 150ms ease;
+  cursor: pointer;
+  font-family: Verdana;
+}
+
+button.navigation_list__button:hover {
+  background-color: #ffb300;
+  border: black solid;
+  border-radius: 10px;
+}

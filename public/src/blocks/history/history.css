@@ -1,0 +1,6 @@
+section.history {
+  display: flex;
+  flex-direction: column;
+  height: 800px;
+  margin-left: 50px;
+}

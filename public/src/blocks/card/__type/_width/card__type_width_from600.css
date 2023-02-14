@@ -1,0 +1,5 @@
+@media (min-width: 600px) {
+  div.card__type {
+    margin-left: 40px;
+  }
+}

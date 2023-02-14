@@ -1,0 +1,5 @@
+@media (max-width: 600px) {
+  div.card__money {
+    margin-left: 10px;
+  }
+}

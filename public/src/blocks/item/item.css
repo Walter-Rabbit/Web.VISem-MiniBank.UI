@@ -1,0 +1,12 @@
+div.item {
+  border-bottom: 1px outset #000000;
+  border-radius: 2px;
+  background-color: #ffffff;
+  display: grid;
+  grid-template-rows: 50px 50px;
+  transition: all 150ms ease;
+}
+
+div.item:hover {
+  background-color: #F0F0F0;
+}

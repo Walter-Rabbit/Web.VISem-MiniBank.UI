@@ -1,0 +1,8 @@
+p.transaction__negative_balance {
+  color: red;
+  font-size: 30px;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 0;
+  font-family: Verdana;
+}

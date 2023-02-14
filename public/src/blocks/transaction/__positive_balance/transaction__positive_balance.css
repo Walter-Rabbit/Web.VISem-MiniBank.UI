@@ -1,0 +1,8 @@
+p.transaction__positive_balance {
+  color: green;
+  font-size: 30px;
+  font-weight: bold;
+  margin-top: 10px;
+  font-family: Verdana;
+  margin-bottom: 0;
+}

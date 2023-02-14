@@ -1,0 +1,5 @@
+@media (min-width: 600px) {
+  section.cards {
+    margin-left: 70px;
+  }
+}

@@ -1,0 +1,5 @@
+@media (min-width: 600px) {
+  div.card {
+    width: 600px;
+  }
+}

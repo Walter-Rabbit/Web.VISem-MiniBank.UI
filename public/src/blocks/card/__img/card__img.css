@@ -1,0 +1,7 @@
+img.card__img {
+  display: flex;
+  justify-content: right;
+  margin: 5px 5px 10px 10px;
+  height: 110px;
+  width: 240px;
+}
