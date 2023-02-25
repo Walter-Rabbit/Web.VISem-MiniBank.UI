@@ -50,3 +50,17 @@
 @import "../blocks/rights/_width/rights_width_to1500.css";
 @import "../blocks/rights/__title/rights__title.css";
 @import "../blocks/rights/__info/rights__info.css";
+@import "../blocks/main_404/main_404.css";
+@import "../blocks/main_404/__p/main_404__p.css";
+@import "../blocks/catalog/catalog.css";
+@import "../blocks/catalog/__title/catalog__title.css";
+@import "../blocks/catalog/__item_list/catalog__item_list.css";
+@import "../blocks/catalog/_width/catalog_to1200.css";
+@import "../blocks/catalog/_width/catalog_from1200.css";
+@import "../blocks/catalog/__item_list/catalog__item_list.css";
+@import "../blocks/item/item.css";
+@import "../blocks/item/__title/item__title.css";
+@import "../blocks/item/__date/item__date.css";
+@import "../blocks/item/__description/item__description.css";
+@import "../blocks/item/_width/item_width_from1200.css";
+@import "../blocks/item/_width/item_width_to1200.css";

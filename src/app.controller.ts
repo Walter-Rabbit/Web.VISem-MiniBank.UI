@@ -8,7 +8,8 @@ export class AppController {
   @Get()
   @Render('index')
   index() {
-    return;
+    const current_page = 'main_page';
+    return { current_page };
   }
 
   @Get('footer')
@@ -23,39 +24,45 @@ export class AppController {
     return;
   }
 
-  @Get('404')
-  @Render('404')
+  @Get('e404')
+  @Render('index')
   e404() {
-    return;
+    const current_page = 'e404';
+    return { current_page };
   }
 
   @Get('accounts')
-  @Render('accounts')
+  @Render('index')
   accounts() {
-    return;
+    const current_page = 'accounts';
+    return { current_page };
   }
 
   @Get('credits')
-  @Render('credits')
+  @Render('index')
   credits() {
-    return;
+    const current_page = 'credits';
+    return { current_page };
   }
 
   @Get('deposits')
-  @Render('deposits')
+  @Render('index')
   deposits() {
-    return;
+    const current_page = 'deposits';
+    return { current_page };
   }
 
   @Get('profiles')
-  @Render('profiles')
+  @Render('index')
   profiles() {
-    return;
+    const current_page = 'profiles';
+    return { current_page };
   }
 
   @Get('transactions')
-  @Render('transactions')
+  @Render('index')
   transactions() {
-    return;
+    const current_page = 'transactions';
+    return { current_page };
   }
 }
