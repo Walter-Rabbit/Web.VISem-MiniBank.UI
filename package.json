@@ -2,7 +2,10 @@
   "name": "mini-bank-2",
   "version": "0.0.1",
   "description": "",
-  "author": "",
+  "author": "Shevchenko Valery <ar4er.valera@gmail.com> (https://github.com/Walter-Rabbit)",
+  "engines": {
+    "node": "16.17.1"
+  },
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
@@ -24,6 +27,7 @@
     "@nestjs/common": "^9.0.0",
     "@nestjs/core": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
+    "hbs": "^4.2.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0",
     "webpack": "^5.75.0"
@@ -53,7 +57,7 @@
     "webpack-cli": "^5.0.1"
   },
   "jest": {
-    "moduleFileExtensions": [
+    "moduleFileExten sions": [
       "js",
       "json",
       "ts"

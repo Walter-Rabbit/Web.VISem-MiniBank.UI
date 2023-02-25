@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+  <meta charset="utf-8">
+  <title>MiniBank</title>
+  <meta name="description" content="Самый лучший в мире банк для самый лучших в мире людей.">
+  <!--  <link href="src/extra/outlines.css" rel="stylesheet">-->
+  <link href="src/imports/main_page_imports.css" rel="stylesheet">
+  <script type="text/javascript" src="src/imports/bundle.js"></script>
+</head>
+<body class="body">
+{{> header }}
+<main class="main_page">
+  <ul class="function_list">
+    <li>
+      <button class="function_list__button" onclick="function_list__button__make_transaction()">Сделать перевод</button>
+    </li>
+    <li>
+      <button class="function_list__button" onclick="function_list__button__ask_transaction()">Запросить перевод
+      </button>
+    </li>
+    <li>
+      <button class="function_list__button">Перевод между своими картами</button>
+    </li>
+  </ul>
+  <section class="cards" id="main_page_section_cards">
+    <h2 class="cards__title">Активные карты</h2>
+    <ul class="cards__cards_list" id="main_page_cards"></ul>
+  </section>
+  <section class="history" id="main_page_section_history">
+    <h2 class="history__title">История</h2>
+    <ul class="history__history_list" id="main_page_history"></ul>
+  </section>
+</main>
+{{> footer }}
+</body>
+</html>
