@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+  <meta charset="utf-8">
+  <title>MiniBank</title>
+  <meta name="description" content="Самый лучший в мире банк для самый лучших в мире людей.">
+  <!--  <link href="src/extra/outlines.css" rel="stylesheet">-->
+  <link href="src/imports/main_page_imports.css" rel="stylesheet">
+  <script type="text/javascript" src="src/imports/bundle.js"></script>
+</head>
+<body class="body">
+{{> header }}
+
+{{#if_equals current_page "main_page" }}
+  {{> main_page }}
+{{/if_equals}}
+
+{{#if_equals current_page "e404" }}
+  {{> e404 }}
+{{/if_equals}}
+
+{{#if_equals current_page "accounts" }}
+  {{> accounts }}
+{{/if_equals}}
+
+{{#if_equals current_page "credits" }}
+  {{> credits }}
+{{/if_equals}}
+
+{{#if_equals current_page "deposits" }}
+  {{> deposits }}
+{{/if_equals}}
+
+{{#if_equals current_page "profiles" }}
+  {{> profiles }}
+{{/if_equals}}
+
+{{#if_equals current_page "transactions" }}
+  {{> transactions }}
+{{/if_equals}}
+
+{{> footer }}
+</body>
+</html>

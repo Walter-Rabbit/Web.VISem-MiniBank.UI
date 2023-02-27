@@ -1,7 +1,6 @@
-/******/ "use strict";
-var __webpack_exports__ = {};
+/******/ 'use strict';
+var __webpack_exports__ = {}; // CONCATENATED MODULE: ./public/src/blocks/cards/__cards_list/cards__cards_list.js
 
-;// CONCATENATED MODULE: ./public/src/blocks/cards/__cards_list/cards__cards_list.js
 function cards__cards_list() {
   window.addEventListener('load', async function () {
     let ul = document.getElementById('main_page_cards');
@@ -54,9 +53,8 @@ function cards__cards_list() {
 
     window.localStorage.setItem('cards', ul.innerHTML);
   });
-}
+} // CONCATENATED MODULE: ./public/src/blocks/catalog/__item_list/catalog__item_list__transactions.js
 
-;// CONCATENATED MODULE: ./public/src/blocks/catalog/__item_list/catalog__item_list__transactions.js
 function catalog__item_list__transactions() {
   window.addEventListener('load', async function () {
     let ul = document.getElementById('transaction_page_history');
@@ -140,9 +138,8 @@ function catalog__item_list__transactions() {
       }
     }
   });
-}
+} // CONCATENATED MODULE: ./public/src/blocks/footer/__loading_time/footer__loading_time.js
 
-;// CONCATENATED MODULE: ./public/src/blocks/footer/__loading_time/footer__loading_time.js
 function check_speed() {
   sessionStorage.now = Date.now();
   setTimeout(check_speed, 25);
@@ -157,9 +154,8 @@ function footer__loading_time() {
     }
     check_speed();
   });
-}
+} // CONCATENATED MODULE: ./public/src/blocks/function_list/__button/function_list__button__ask_transaction.js
 
-;// CONCATENATED MODULE: ./public/src/blocks/function_list/__button/function_list__button__ask_transaction.js
 function function_list__button__ask_transaction() {
   let ul = document.getElementById('main_page_history');
 
@@ -207,9 +203,8 @@ function function_list__button__ask_transaction() {
 
   let section = document.getElementsByClassName('history');
   section[0].style.visibility = 'visible';
-}
+} // CONCATENATED MODULE: ./public/src/blocks/function_list/__button/function_list__button__make_transaction.js
 
-;// CONCATENATED MODULE: ./public/src/blocks/function_list/__button/function_list__button__make_transaction.js
 function function_list__button__make_transaction() {
   let ul = document.getElementById('main_page_history');
 
@@ -257,9 +252,8 @@ function function_list__button__make_transaction() {
 
   let section = document.getElementsByClassName('history');
   section[0].style.visibility = 'visible';
-}
+} // CONCATENATED MODULE: ./public/src/blocks/history/__history_list/history__history_list.js
 
-;// CONCATENATED MODULE: ./public/src/blocks/history/__history_list/history__history_list.js
 function history__history_list() {
   window.addEventListener('load', async function () {
     let ul = document.getElementById('main_page_history');
@@ -332,9 +326,8 @@ function history__history_list() {
       }
     }
   });
-}
+} // CONCATENATED MODULE: ./public/src/blocks/navigation_list/__button/navigation_list__button.js
 
-;// CONCATENATED MODULE: ./public/src/blocks/navigation_list/__button/navigation_list__button.js
 function navigation_list__button() {
   window.addEventListener('load', function () {
     let address = document.URL.split('/');
@@ -346,20 +339,10 @@ function navigation_list__button() {
       element.style.background = '#ffb300';
     }
   });
-}
-
-;// CONCATENATED MODULE: ./public/index.js
-
-
-
-
-
-
-
+} // CONCATENATED MODULE: ./public/index.js
 
 cards__cards_list();
 catalog__item_list__transactions();
 footer__loading_time();
 history__history_list();
 navigation_list__button();
-
