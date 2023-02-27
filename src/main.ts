@@ -13,6 +13,9 @@ async function bootstrap() {
   hbs.registerHelper('if_equals', function (l, r, options) {
     return l == r ? options.fn(this) : options.inverse(this);
   });
+  hbs.registerHelper('loading_time', function (start) {
+    return new Date().getTime() - start;
+  });
   app.useStaticAssets(join(__dirname, '..', 'public'));
   app.setBaseViewsDir(join(__dirname, '..', 'views'));
   app.setViewEngine('hbs');
