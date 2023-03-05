@@ -13,30 +13,6 @@ export class AppController {
     return { current_page, start_time };
   }
 
-  @Get('footer')
-  @Render('footer')
-  footer() {
-    return;
-  }
-
-  @Get('header')
-  @Render('header')
-  header() {
-    return;
-  }
-
-  @Get('functions_list')
-  @Render('functions_list')
-  functions_list() {
-    return;
-  }
-
-  @Get('loading_time')
-  @Render('loading_time')
-  loading_time() {
-    return;
-  }
-
   @Get('e404')
   @Render('index')
   e404() {
