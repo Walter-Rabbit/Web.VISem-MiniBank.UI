@@ -1,0 +1,92 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider            = "prisma-client-js"
+}
+
+datasource db {
+    provider            = "postgresql"
+    url                 = env("DATABASE_URL")
+}
+
+model UserProfile {
+    id                  Int                 @default(autoincrement()) @id
+    name                String
+    email               String              @unique
+    birthDate           DateTime
+    accounts            Account[]
+    credits             Credit[]
+    deposits            Deposit[]
+}
+
+model Transaction {
+    id                  Int                 @default(autoincrement()) @id
+    amount              Float
+    date                DateTime
+    senderAccount       Account             @relation(fields: [senderAccountId], references: [id])
+    senderAccountId     Int
+    receiverAccountId   Int
+}
+
+model AccountDescription {
+    id                  Int                 @default(autoincrement()) @id
+    name                String              @unique
+    duration            DateTime
+    limit               Float
+    monthPercent        Float
+    price               Float
+    accounts            Account[]
+}
+
+model CreditDescription {
+    id                  Int                 @default(autoincrement()) @id
+    name                String              @unique
+    duration            DateTime
+    amount              Float
+    percent             Float
+    credits             Credit[]
+}
+
+model DepositDescription {
+    id                  Int                 @default(autoincrement()) @id
+    name                String              @unique
+    duration            DateTime
+    limit               Float
+    yearPercent         Float
+    deposits            Deposit[]
+}
+
+model Account {
+    id                  Int                 @default(autoincrement()) @id
+    description         AccountDescription  @relation(fields: [descriptionId], references: [id])
+    descriptionId       Int
+    ownerProfile        UserProfile         @relation(fields: [ownerProfileId], references: [id])
+    ownerProfileId      Int
+    amount              Float
+    isActive            Boolean
+    serviceEndDate      DateTime
+    transactions        Transaction[]
+}
+
+model Credit {
+    id                  Int                 @default(autoincrement()) @id
+    description         CreditDescription   @relation(fields: [descriptionId], references: [id])
+    descriptionId       Int
+    ownerProfile        UserProfile         @relation(fields: [ownerProfileId], references: [id])
+    ownerProfileId      Int
+    amount              Float
+    moneyLeftToPay      Float
+    serviceEndDate      DateTime
+}
+
+model Deposit {
+    id                  Int                 @default(autoincrement()) @id
+    description         DepositDescription  @relation(fields: [descriptionId], references: [id])
+    descriptionId       Int
+    ownerProfile        UserProfile         @relation(fields: [ownerProfileId], references: [id])
+    ownerProfileId      Int
+    amount              Float
+    moneyPaid           Float
+    serviceEndDate      DateTime
+}
