@@ -1,7 +1,9 @@
-import { Controller, Get, Render } from '@nestjs/common';
+import { Controller, Get, Render, UseInterceptors } from '@nestjs/common';
 import { AppService } from './app.service';
+import { LoadTimeInterceptor } from './loadTimeInterceptor';
 
 @Controller()
+@UseInterceptors(LoadTimeInterceptor)
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
@@ -9,55 +11,48 @@ export class AppController {
   @Render('index')
   index() {
     const current_page = 'main_page';
-    const start_time = new Date().getTime();
-    return { current_page, start_time };
+    return { current_page };
   }
 
   @Get('e404')
   @Render('index')
   e404() {
     const current_page = 'e404';
-    const start_time = new Date().getTime();
-    return { current_page, start_time };
+    return { current_page };
   }
 
   @Get('accounts')
   @Render('index')
   accounts() {
     const current_page = 'accounts';
-    const start_time = new Date().getTime();
-    return { current_page, start_time };
+    return { current_page };
   }
 
   @Get('credits')
   @Render('index')
   credits() {
     const current_page = 'credits';
-    const start_time = new Date().getTime();
-    return { current_page, start_time };
+    return { current_page };
   }
 
   @Get('deposits')
   @Render('index')
   deposits() {
     const current_page = 'deposits';
-    const start_time = new Date().getTime();
-    return { current_page, start_time };
+    return { current_page };
   }
 
   @Get('profiles')
   @Render('index')
   profiles() {
     const current_page = 'profiles';
-    const start_time = new Date().getTime();
-    return { current_page, start_time };
+    return { current_page };
   }
 
   @Get('transactions')
   @Render('index')
   transactions() {
     const current_page = 'transactions';
-    const start_time = new Date().getTime();
-    return { current_page, start_time };
+    return { current_page };
   }
 }
