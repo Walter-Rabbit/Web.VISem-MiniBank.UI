@@ -23,6 +23,7 @@ CREATE TABLE "Transaction" (
 CREATE TABLE "AccountDescription" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
     "duration" TIMESTAMP(3) NOT NULL,
     "limit" DOUBLE PRECISION NOT NULL,
     "monthPercent" DOUBLE PRECISION NOT NULL,
@@ -35,6 +36,7 @@ CREATE TABLE "AccountDescription" (
 CREATE TABLE "CreditDescription" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
     "duration" TIMESTAMP(3) NOT NULL,
     "amount" DOUBLE PRECISION NOT NULL,
     "percent" DOUBLE PRECISION NOT NULL,
@@ -46,6 +48,7 @@ CREATE TABLE "CreditDescription" (
 CREATE TABLE "DepositDescription" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
     "duration" TIMESTAMP(3) NOT NULL,
     "limit" DOUBLE PRECISION NOT NULL,
     "yearPercent" DOUBLE PRECISION NOT NULL,
