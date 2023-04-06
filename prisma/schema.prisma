@@ -32,6 +32,7 @@ model Transaction {
 model AccountDescription {
     id                  Int                 @default(autoincrement()) @id
     name                String              @unique
+    description         String
     duration            DateTime
     limit               Float
     monthPercent        Float
@@ -42,6 +43,7 @@ model AccountDescription {
 model CreditDescription {
     id                  Int                 @default(autoincrement()) @id
     name                String              @unique
+    description         String
     duration            DateTime
     amount              Float
     percent             Float
@@ -51,6 +53,7 @@ model CreditDescription {
 model DepositDescription {
     id                  Int                 @default(autoincrement()) @id
     name                String              @unique
+    description         String
     duration            DateTime
     limit               Float
     yearPercent         Float
