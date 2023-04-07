@@ -3,11 +3,14 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
 import { AppModule } from './app.module';
 import * as hbs from 'hbs';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 const port = process.env.port || 3000;
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  const config = new DocumentBuilder().build();
+  const document = SwaggerModule.createDocument(app, config);
 
   hbs.registerPartials(join(__dirname, '..', 'views', 'partials'));
   hbs.registerHelper('if_equals', function (l, r, options) {
@@ -19,6 +22,8 @@ async function bootstrap() {
   app.useStaticAssets(join(__dirname, '..', 'public'));
   app.setBaseViewsDir(join(__dirname, '..', 'views'));
   app.setViewEngine('hbs');
+
+  SwaggerModule.setup('api', app, document);
 
   await app.listen(port);
 }
