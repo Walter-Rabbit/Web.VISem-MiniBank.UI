@@ -2,10 +2,10 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TransactionsModule } from './transactions/transactions.module';
+import { ProductsModule } from './products/products.module';
 
 @Module({
-  //TODO: Добавить модуль для пользователя (авторизация и прочее)
-  imports: [TransactionsModule],
+  imports: [TransactionsModule, ProductsModule],
   controllers: [AppController],
   providers: [AppService],
 })

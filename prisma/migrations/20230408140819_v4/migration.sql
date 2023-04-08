@@ -1,11 +1,22 @@
 -- CreateTable
-CREATE TABLE "UserProfile" (
+CREATE TABLE "Client" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "birthDate" TIMESTAMP(3) NOT NULL,
+    "encodedPassword" TEXT NOT NULL,
 
-    CONSTRAINT "UserProfile_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Client_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Admin" (
+    "id" SERIAL NOT NULL,
+    "name" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "encodedPassword" TEXT NOT NULL,
+
+    CONSTRAINT "Admin_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -60,7 +71,7 @@ CREATE TABLE "DepositDescription" (
 CREATE TABLE "Account" (
     "id" SERIAL NOT NULL,
     "descriptionId" INTEGER NOT NULL,
-    "ownerProfileId" INTEGER NOT NULL,
+    "ownerId" INTEGER NOT NULL,
     "amount" DOUBLE PRECISION NOT NULL,
     "isActive" BOOLEAN NOT NULL,
     "serviceEndDate" TIMESTAMP(3) NOT NULL,
@@ -72,7 +83,7 @@ CREATE TABLE "Account" (
 CREATE TABLE "Credit" (
     "id" SERIAL NOT NULL,
     "descriptionId" INTEGER NOT NULL,
-    "ownerProfileId" INTEGER NOT NULL,
+    "ownerId" INTEGER NOT NULL,
     "amount" DOUBLE PRECISION NOT NULL,
     "moneyLeftToPay" DOUBLE PRECISION NOT NULL,
     "serviceEndDate" TIMESTAMP(3) NOT NULL,
@@ -84,7 +95,7 @@ CREATE TABLE "Credit" (
 CREATE TABLE "Deposit" (
     "id" SERIAL NOT NULL,
     "descriptionId" INTEGER NOT NULL,
-    "ownerProfileId" INTEGER NOT NULL,
+    "ownerId" INTEGER NOT NULL,
     "amount" DOUBLE PRECISION NOT NULL,
     "moneyPaid" DOUBLE PRECISION NOT NULL,
     "serviceEndDate" TIMESTAMP(3) NOT NULL,
@@ -93,7 +104,7 @@ CREATE TABLE "Deposit" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "UserProfile_email_key" ON "UserProfile"("email");
+CREATE UNIQUE INDEX "Client_email_key" ON "Client"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "AccountDescription_name_key" ON "AccountDescription"("name");
@@ -111,16 +122,16 @@ ALTER TABLE "Transaction" ADD CONSTRAINT "Transaction_senderAccountId_fkey" FORE
 ALTER TABLE "Account" ADD CONSTRAINT "Account_descriptionId_fkey" FOREIGN KEY ("descriptionId") REFERENCES "AccountDescription"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Account" ADD CONSTRAINT "Account_ownerProfileId_fkey" FOREIGN KEY ("ownerProfileId") REFERENCES "UserProfile"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Account" ADD CONSTRAINT "Account_ownerId_fkey" FOREIGN KEY ("ownerId") REFERENCES "Client"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Credit" ADD CONSTRAINT "Credit_descriptionId_fkey" FOREIGN KEY ("descriptionId") REFERENCES "CreditDescription"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Credit" ADD CONSTRAINT "Credit_ownerProfileId_fkey" FOREIGN KEY ("ownerProfileId") REFERENCES "UserProfile"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Credit" ADD CONSTRAINT "Credit_ownerId_fkey" FOREIGN KEY ("ownerId") REFERENCES "Client"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Deposit" ADD CONSTRAINT "Deposit_descriptionId_fkey" FOREIGN KEY ("descriptionId") REFERENCES "DepositDescription"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Deposit" ADD CONSTRAINT "Deposit_ownerProfileId_fkey" FOREIGN KEY ("ownerProfileId") REFERENCES "UserProfile"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Deposit" ADD CONSTRAINT "Deposit_ownerId_fkey" FOREIGN KEY ("ownerId") REFERENCES "Client"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
