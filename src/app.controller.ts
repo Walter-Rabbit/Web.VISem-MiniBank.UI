@@ -1,7 +1,9 @@
 import { Controller, Get, Render, UseInterceptors } from '@nestjs/common';
 import { AppService } from './app.service';
-import { LoadTimeInterceptor } from './loadTimeInterceptor';
+import { LoadTimeInterceptor } from './interceptors/loadTimeInterceptor';
+import { ApiExcludeController } from '@nestjs/swagger';
 
+@ApiExcludeController()
 @Controller()
 @UseInterceptors(LoadTimeInterceptor)
 export class AppController {
