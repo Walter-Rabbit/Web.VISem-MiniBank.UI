@@ -32,13 +32,8 @@ model Transaction {
   id                Int      @id @default(autoincrement())
   amount            Float
   date              DateTime
-  senderAccount     Account  @relation(fields: [senderAccountId], references: [id])
-  senderCredit      Credit   @relation(fields: [senderCreditId], references: [id])
-  senderDeposit     Deposit  @relation(fields: [senderDepositId], references: [id])
-  senderAccountId   Int
-  senderCreditId    Int
-  senderDepositId   Int
-  receiverProduct   Int
+  senderProductId   Int
+  receiverProductId Int
 }
 
 model AccountDescription {
@@ -81,7 +76,6 @@ model Account {
   amount         Float
   isActive       Boolean
   serviceEndDate DateTime
-  transactions   Transaction[]
 }
 
 model Credit {
@@ -93,7 +87,6 @@ model Credit {
   amount         Float
   moneyLeftToPay Float
   serviceEndDate DateTime
-  transactions   Transaction[]
 }
 
 model Deposit {
@@ -105,5 +98,4 @@ model Deposit {
   amount         Float
   moneyPaid      Float
   serviceEndDate DateTime
-  transactions   Transaction[]
 }
