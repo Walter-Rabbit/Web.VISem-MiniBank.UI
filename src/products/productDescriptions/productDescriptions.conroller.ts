@@ -1,7 +1,10 @@
 import {
   Body,
   Controller,
+  Delete,
   NotImplementedException,
+  Param,
+  Patch,
   Post,
 } from '@nestjs/common';
 import { ProductDescriptionsService } from './productDescriptions.service';
@@ -15,10 +18,22 @@ export class ProductDescriptionsController {
     private readonly productDescriptionsService: ProductDescriptionsService,
   ) {}
 
-  @Post('create-product-description')
+  @Post()
   createProductDescription(
     @Body() productDescriptionDto: ProductDescriptionDto,
-  ): ProductDescriptionDto {
-    return productDescriptionDto;
+  ): number {
+    throw new NotImplementedException();
+  }
+
+  @Delete()
+  deleteProductDescription(@Param() id: number): void {
+    throw new NotImplementedException();
+  }
+
+  @Patch()
+  patchProductDescription(
+    @Body() productDescriptionDto: ProductDescriptionDto,
+  ): void {
+    throw new NotImplementedException();
   }
 }

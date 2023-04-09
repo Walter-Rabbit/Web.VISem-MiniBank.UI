@@ -8,4 +8,12 @@ export class ProductDescriptionsService {
   ): number {
     throw new NotImplementedException();
   }
+
+  updateProductDescription(productDescriptionDto: ProductDescriptionDto): void {
+    throw new NotImplementedException();
+  }
+
+  deleteProductDescription(productDescriptionId: number): void {
+    throw new NotImplementedException();
+  }
 }

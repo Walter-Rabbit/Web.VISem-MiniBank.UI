@@ -33,8 +33,12 @@ model Transaction {
   amount            Float
   date              DateTime
   senderAccount     Account  @relation(fields: [senderAccountId], references: [id])
+  senderCredit      Credit   @relation(fields: [senderCreditId], references: [id])
+  senderDeposit     Deposit  @relation(fields: [senderDepositId], references: [id])
   senderAccountId   Int
-  receiverAccountId Int
+  senderCreditId    Int
+  senderDepositId   Int
+  receiverProduct   Int
 }
 
 model AccountDescription {
@@ -89,6 +93,7 @@ model Credit {
   amount         Float
   moneyLeftToPay Float
   serviceEndDate DateTime
+  transactions   Transaction[]
 }
 
 model Deposit {
@@ -100,4 +105,5 @@ model Deposit {
   amount         Float
   moneyPaid      Float
   serviceEndDate DateTime
+  transactions   Transaction[]
 }

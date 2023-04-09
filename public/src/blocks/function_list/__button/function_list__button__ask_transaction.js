@@ -1,3 +1,4 @@
+// Not used anymore
 export default function function_list__button__ask_transaction() {
   let ul = document.getElementById('main_page_history');
 
