@@ -1,5 +1,6 @@
 import { ProductDto } from './productDto';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class AccountDto extends ProductDto {
-  isActive: boolean;
+  @ApiProperty() isActive: boolean;
 }

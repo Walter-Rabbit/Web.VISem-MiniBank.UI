@@ -1,7 +1,8 @@
 import { ProductDescriptionDto } from './productDescriptionDto';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class AccountDescriptionDto extends ProductDescriptionDto {
-  limit: number;
-  monthPercent: number;
-  price: number;
+  @ApiProperty() limit: number;
+  @ApiProperty() monthPercent: number;
+  @ApiProperty() price: number;
 }

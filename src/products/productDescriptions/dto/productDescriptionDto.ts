@@ -1,6 +1,8 @@
+import { ApiProperty } from '@nestjs/swagger';
+
 export abstract class ProductDescriptionDto {
-  id: number;
-  name: string;
-  description: string;
-  duration: Date;
+  @ApiProperty() id: number;
+  @ApiProperty() name: string;
+  @ApiProperty() description: string;
+  @ApiProperty() duration: Date;
 }
