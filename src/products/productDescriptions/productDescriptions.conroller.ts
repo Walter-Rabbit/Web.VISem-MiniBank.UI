@@ -33,6 +33,10 @@ export class ProductDescriptionsController {
     description: 'Return id of created product.',
   })
   @ApiResponse({
+    status: 400,
+    description: 'Bad request.',
+  })
+  @ApiResponse({
     status: 403,
     description: 'Forbidden.',
   })
@@ -56,6 +60,10 @@ export class ProductDescriptionsController {
     description: 'Product successfully deleted.',
   })
   @ApiResponse({
+    status: 400,
+    description: 'Bad request.',
+  })
+  @ApiResponse({
     status: 403,
     description: 'Forbidden.',
   })
@@ -77,6 +85,10 @@ export class ProductDescriptionsController {
   @ApiResponse({
     status: 200,
     description: 'Product successfully updated.',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Bad request.',
   })
   @ApiResponse({
     status: 403,

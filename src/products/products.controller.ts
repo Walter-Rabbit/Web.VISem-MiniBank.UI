@@ -25,6 +25,10 @@ export class ProductsController {
     description: 'Id of created product.',
   })
   @ApiResponse({
+    status: 400,
+    description: 'Bad request.',
+  })
+  @ApiResponse({
     status: 403,
     description: 'Forbidden.',
   })

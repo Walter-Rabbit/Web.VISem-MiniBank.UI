@@ -25,6 +25,10 @@ export class UsersController {
     description: 'Your personal token.',
   })
   @ApiResponse({
+    status: 400,
+    description: 'Bad request.',
+  })
+  @ApiResponse({
     status: 403,
     description: 'Incorrect password.',
   })
@@ -45,6 +49,10 @@ export class UsersController {
     description: 'Your personal token.',
   })
   @ApiResponse({
+    status: 400,
+    description: 'Bad request.',
+  })
+  @ApiResponse({
     status: 403,
     description: 'Forbidden.',
   })
@@ -63,6 +71,10 @@ export class UsersController {
   @ApiResponse({
     status: 200,
     description: 'New admin personal token.',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Bad request.',
   })
   @ApiResponse({
     status: 403,
