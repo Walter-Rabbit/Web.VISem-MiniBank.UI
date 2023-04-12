@@ -8,7 +8,7 @@ export class LoadTimeInterceptor implements NestInterceptor {
     return next.handle().pipe(
       map((content) => {
         return {
-          content,
+          ...content,
           load_time: (Date.now() - start) / 1000.0,
         };
       }),
