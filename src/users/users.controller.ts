@@ -5,12 +5,14 @@ import {
   Param,
   Body,
   Headers,
+  Get,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UsersService } from './users.service';
 import { ClientDto } from './dto/clientDto';
 import { AdminDto } from './dto/adminDto';
 import { SignInDto } from './dto/signInDto';
+import { UserDto } from './dto/userDto';
 
 @ApiTags('users')
 @Controller('users')
@@ -23,6 +25,10 @@ export class UsersController {
   @ApiResponse({
     status: 200,
     description: 'Your personal token.',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Bad request.',
   })
   @ApiResponse({
     status: 403,
@@ -45,6 +51,10 @@ export class UsersController {
     description: 'Your personal token.',
   })
   @ApiResponse({
+    status: 400,
+    description: 'Bad request.',
+  })
+  @ApiResponse({
     status: 403,
     description: 'Forbidden.',
   })
@@ -65,6 +75,10 @@ export class UsersController {
     description: 'New admin personal token.',
   })
   @ApiResponse({
+    status: 400,
+    description: 'Bad request.',
+  })
+  @ApiResponse({
     status: 403,
     description: 'Forbidden.',
   })
@@ -77,6 +91,36 @@ export class UsersController {
     @Body() adminDto: AdminDto,
     @Headers('token') token: string,
   ): string {
+    throw new NotImplementedException();
+  }
+
+  @ApiOperation({
+    summary:
+      'Get specified user. ' +
+      'Client may get only his profile,' +
+      'admin may get any profiles.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Return user dto.',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Bad request.',
+  })
+  @ApiResponse({
+    status: 403,
+    description: 'Forbidden.',
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'Internal error.',
+  })
+  @Get()
+  getTransaction(
+    @Param() id: number,
+    @Headers('token') token: string,
+  ): UserDto {
     throw new NotImplementedException();
   }
 }

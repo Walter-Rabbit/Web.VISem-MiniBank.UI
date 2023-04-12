@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Delete,
+  Get,
   Headers,
   NotImplementedException,
   Param,
@@ -9,13 +10,7 @@ import {
   Post,
 } from '@nestjs/common';
 import { ProductDescriptionsService } from './productDescriptions.service';
-import {
-  ApiBody,
-  ApiOperation,
-  ApiParam,
-  ApiResponse,
-  ApiTags,
-} from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ProductDescriptionDto } from './dto/productDescriptionDto';
 
 @ApiTags('productDescriptions')
@@ -31,6 +26,10 @@ export class ProductDescriptionsController {
   @ApiResponse({
     status: 200,
     description: 'Return id of created product.',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Bad request.',
   })
   @ApiResponse({
     status: 403,
@@ -49,11 +48,35 @@ export class ProductDescriptionsController {
   }
 
   @ApiOperation({
+    summary: 'Get product from catalog.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Return product description dto.',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Bad request.',
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'Internal error.',
+  })
+  @Get()
+  getProductDescription(@Param() id: number): ProductDescriptionDto {
+    throw new NotImplementedException();
+  }
+
+  @ApiOperation({
     summary: 'Delete product from catalog. To delete you need to be admin.',
   })
   @ApiResponse({
     status: 200,
     description: 'Product successfully deleted.',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Bad request.',
   })
   @ApiResponse({
     status: 403,
@@ -77,6 +100,10 @@ export class ProductDescriptionsController {
   @ApiResponse({
     status: 200,
     description: 'Product successfully updated.',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Bad request.',
   })
   @ApiResponse({
     status: 403,

@@ -1,5 +1,6 @@
 import { ProductDto } from './productDto';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class DepositDto extends ProductDto {
-  moneyPaid: number;
+  @ApiProperty() moneyPaid: number;
 }

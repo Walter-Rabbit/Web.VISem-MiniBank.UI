@@ -1,7 +1,9 @@
+import { ApiProperty } from '@nestjs/swagger';
+
 export class TransactionDto {
-  id: number;
-  amount: number;
-  date: Date;
-  senderProductId: number;
-  receiverProductId: number;
+  @ApiProperty() id: number;
+  @ApiProperty() amount: number;
+  @ApiProperty() date: Date;
+  @ApiProperty() senderProductId: number;
+  @ApiProperty() receiverProductId: number;
 }

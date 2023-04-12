@@ -12,31 +12,31 @@
 <body class="body">
 {{> header }}
 
-{{#if_equals content.current_page "main_page" }}
+{{#if_equals current_page "main_page" }}
   {{> main_page }}
 {{/if_equals}}
 
-{{#if_equals content.current_page "e404" }}
+{{#if_equals current_page "e404" }}
   {{> e404 }}
 {{/if_equals}}
 
-{{#if_equals content.current_page "accounts" }}
+{{#if_equals current_page "accounts" }}
   {{> accounts }}
 {{/if_equals}}
 
-{{#if_equals content.current_page "credits" }}
+{{#if_equals current_page "credits" }}
   {{> credits }}
 {{/if_equals}}
 
-{{#if_equals content.current_page "deposits" }}
+{{#if_equals current_page "deposits" }}
   {{> deposits }}
 {{/if_equals}}
 
-{{#if_equals content.current_page "profiles" }}
+{{#if_equals current_page "profiles" }}
   {{> profiles }}
 {{/if_equals}}
 
-{{#if_equals content.current_page "transactions" }}
+{{#if_equals current_page "transactions" }}
   {{> transactions }}
 {{/if_equals}}
 
