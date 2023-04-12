@@ -2,11 +2,10 @@ import {
   Controller,
   NotImplementedException,
   Post,
-  Patch,
   Body,
-  Delete,
   Param,
   Headers,
+  Get,
 } from '@nestjs/common';
 import { ProductsService } from './products.sercvice';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
@@ -42,6 +41,33 @@ export class ProductsController {
     @Param() clientId: number,
     @Headers('token') token: string,
   ): number {
+    throw new NotImplementedException();
+  }
+
+  @ApiOperation({
+    summary:
+      'Get specified product. ' +
+      'Client may get only his products, ' +
+      'admin may get any product.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Return product dto.',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Bad request.',
+  })
+  @ApiResponse({
+    status: 403,
+    description: 'Forbidden.',
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'Internal error.',
+  })
+  @Get()
+  getProduct(@Param() id: number, @Headers('token') token: string): ProductDto {
     throw new NotImplementedException();
   }
 }

@@ -4,6 +4,8 @@ import {
   Post,
   Body,
   Headers,
+  Get,
+  Param,
 } from '@nestjs/common';
 import { TransactionsService } from './transactions.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
@@ -39,6 +41,36 @@ export class TransactionsController {
     @Body() transactionDto: TransactionDto,
     @Headers('token') token: string,
   ) {
+    throw new NotImplementedException();
+  }
+
+  @ApiOperation({
+    summary:
+      'Get specified transaction. ' +
+      'Client may get only his transactions, ' +
+      'admin may get any transaction.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Return transaction dto.',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Bad request.',
+  })
+  @ApiResponse({
+    status: 403,
+    description: 'Forbidden.',
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'Internal error.',
+  })
+  @Get()
+  getTransaction(
+    @Param() id: number,
+    @Headers('token') token: string,
+  ): TransactionDto {
     throw new NotImplementedException();
   }
 }

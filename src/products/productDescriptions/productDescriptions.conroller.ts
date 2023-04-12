@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Delete,
+  Get,
   Headers,
   NotImplementedException,
   Param,
@@ -9,13 +10,7 @@ import {
   Post,
 } from '@nestjs/common';
 import { ProductDescriptionsService } from './productDescriptions.service';
-import {
-  ApiBody,
-  ApiOperation,
-  ApiParam,
-  ApiResponse,
-  ApiTags,
-} from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ProductDescriptionDto } from './dto/productDescriptionDto';
 
 @ApiTags('productDescriptions')
@@ -49,6 +44,26 @@ export class ProductDescriptionsController {
     @Body() productDescriptionDto: ProductDescriptionDto,
     @Headers('token') token: string,
   ): number {
+    throw new NotImplementedException();
+  }
+
+  @ApiOperation({
+    summary: 'Get product from catalog.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Return product description dto.',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Bad request.',
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'Internal error.',
+  })
+  @Get()
+  getProductDescription(@Param() id: number): ProductDescriptionDto {
     throw new NotImplementedException();
   }
 
