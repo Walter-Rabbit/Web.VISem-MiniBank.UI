@@ -21,7 +21,7 @@ export class ProductDescriptionsController {
   ) {}
 
   @ApiOperation({
-    summary: 'Create new product in catalog. To create you need to be admin.',
+    summary: 'Create new product in content. To create you need to be admin.',
   })
   @ApiResponse({
     status: 200,
@@ -48,7 +48,7 @@ export class ProductDescriptionsController {
   }
 
   @ApiOperation({
-    summary: 'Get product from catalog.',
+    summary: 'Get product from content.',
   })
   @ApiResponse({
     status: 200,
@@ -68,7 +68,7 @@ export class ProductDescriptionsController {
   }
 
   @ApiOperation({
-    summary: 'Delete product from catalog. To delete you need to be admin.',
+    summary: 'Delete product from content. To delete you need to be admin.',
   })
   @ApiResponse({
     status: 200,
@@ -95,7 +95,7 @@ export class ProductDescriptionsController {
   }
 
   @ApiOperation({
-    summary: 'Update product in catalog. To update you need to be admin.',
+    summary: 'Update product in content. To update you need to be admin.',
   })
   @ApiResponse({
     status: 200,

@@ -1,4 +1,4 @@
-export default function catalog__item_list__transactions() {
+export default function content__item_list__transactions() {
   window.addEventListener('load', async function () {
     let ul = document.getElementById('transaction_page_history');
 

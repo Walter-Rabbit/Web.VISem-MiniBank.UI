@@ -1,7 +1,7 @@
-/******/ "use strict";
-var __webpack_exports__ = {};
+/******/
+'use strict';
+var __webpack_exports__ = {}; // CONCATENATED MODULE: ./public/src/blocks/cards/__cards_list/cards__cards_list.js
 
-;// CONCATENATED MODULE: ./public/src/blocks/cards/__cards_list/cards__cards_list.js
 function cards__cards_list() {
   window.addEventListener('load', async function () {
     let ul = document.getElementById('main_page_cards');
@@ -54,10 +54,9 @@ function cards__cards_list() {
 
     window.localStorage.setItem('cards', ul.innerHTML);
   });
-}
+} // CONCATENATED MODULE: ./public/src/blocks/content/__item_list/content__item_list__transactions.js
 
-;// CONCATENATED MODULE: ./public/src/blocks/catalog/__item_list/catalog__item_list__transactions.js
-function catalog__item_list__transactions() {
+function content__item_list__transactions() {
   window.addEventListener('load', async function () {
     let ul = document.getElementById('transaction_page_history');
 
@@ -140,9 +139,8 @@ function catalog__item_list__transactions() {
       }
     }
   });
-}
+} // CONCATENATED MODULE: ./public/src/blocks/footer/__loading_time/footer__loading_time.js
 
-;// CONCATENATED MODULE: ./public/src/blocks/footer/__loading_time/footer__loading_time.js
 function check_speed() {
   sessionStorage.now = Date.now();
   setTimeout(check_speed, 25);
@@ -157,9 +155,8 @@ function footer__loading_time() {
     }
     check_speed();
   });
-}
+} // CONCATENATED MODULE: ./public/src/blocks/history/__history_list/history__history_list.js
 
-;// CONCATENATED MODULE: ./public/src/blocks/history/__history_list/history__history_list.js
 function history__history_list() {
   window.addEventListener('load', async function () {
     let ul = document.getElementById('main_page_history');
@@ -232,9 +229,8 @@ function history__history_list() {
       }
     }
   });
-}
+} // CONCATENATED MODULE: ./public/src/blocks/navigation_list/__button/navigation_list__button.js
 
-;// CONCATENATED MODULE: ./public/src/blocks/navigation_list/__button/navigation_list__button.js
 function navigation_list__button() {
   window.addEventListener('load', function () {
     let address = document.URL.split('/');
@@ -246,18 +242,59 @@ function navigation_list__button() {
       element.style.background = '#ffb300';
     }
   });
-}
+} // CONCATENATED MODULE: ./public/src/blocks/function_list/__button/function_list__button__make_transaction.js
 
-;// CONCATENATED MODULE: ./public/index.js
+function function_list__button__make_transaction() {
+  let ul = document.getElementById('main_page_history');
 
+  let li = document.createElement('li');
 
+  let div = document.createElement('div');
+  div.className = 'transaction';
 
+  let p1 = document.createElement('p');
 
+  let number = Number(window.prompt('Enter RUB transfer amount: ', '100'));
 
+  if (number === 0) {
+    return;
+  }
+
+  if (number < 0) {
+    window.alert('Amount must be positive number');
+    return;
+  }
+
+  p1.className = 'transaction__negative_balance';
+  p1.textContent = '-' + number.toString() + 'руб.';
+
+  let p2 = document.createElement('p');
+  p2.className = 'transaction__date';
+  let date = new Date();
+  p2.textContent = `${date.getDate() + 1}.${
+    date.getMonth() + 1
+  }.${date.getFullYear()}`;
+
+  let p3 = document.createElement('p');
+  p3.textContent = 'Valery Shevchenko';
+  p3.style.visibility = 'hidden';
+  p3.style.height = '0';
+  p3.style.width = '0';
+
+  div.appendChild(p1);
+  div.appendChild(p2);
+  div.appendChild(p3);
+  li.appendChild(div);
+  ul.insertBefore(li, ul.firstChild);
+
+  window.localStorage.setItem('history', ul.innerHTML);
+
+  let section = document.getElementsByClassName('history');
+  section[0].style.visibility = 'visible';
+} // CONCATENATED MODULE: ./public/src/imports/imports.js
 
 cards__cards_list();
-catalog__item_list__transactions();
+content__item_list__transactions();
 footer__loading_time();
 history__history_list();
 navigation_list__button();
-
