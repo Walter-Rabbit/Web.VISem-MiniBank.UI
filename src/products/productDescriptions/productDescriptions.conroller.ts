@@ -12,6 +12,9 @@ import {
 import { ProductDescriptionsService } from './productDescriptions.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ProductDescriptionDto } from './dto/productDescriptionDto';
+import { AccountDescriptionDto } from './dto/accountDescriptionDto';
+import { CreditDescriptionDto } from './dto/creditDescriptionDto';
+import { DepositDescriptionDto } from './dto/depositDescriptionDto';
 
 @ApiTags('productDescriptions')
 @Controller('productDescriptions')
@@ -21,11 +24,11 @@ export class ProductDescriptionsController {
   ) {}
 
   @ApiOperation({
-    summary: 'Create new product in content. To create you need to be admin.',
+    summary: 'Create new account in content. To create you need to be admin.',
   })
   @ApiResponse({
     status: 200,
-    description: 'Return id of created product.',
+    description: 'Return id of created account.',
   })
   @ApiResponse({
     status: 400,
@@ -39,11 +42,67 @@ export class ProductDescriptionsController {
     status: 500,
     description: 'Internal error.',
   })
-  @Post()
-  createProductDescription(
-    @Body() productDescriptionDto: ProductDescriptionDto,
+  @Post('account')
+  async createAccountDescription(
+    @Body() accountDescriptionDto: AccountDescriptionDto,
     @Headers('token') token: string,
-  ): number {
+  ): Promise<string> {
+    return this.productDescriptionsService.createAccountDescription(
+      accountDescriptionDto,
+    );
+  }
+
+  @ApiOperation({
+    summary: 'Create new credit in content. To create you need to be admin.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Return id of created credit.',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Bad request.',
+  })
+  @ApiResponse({
+    status: 403,
+    description: 'Forbidden.',
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'Internal error.',
+  })
+  @Post('credit')
+  async createCreditDescription(
+    @Body() creditDescriptionDto: CreditDescriptionDto,
+    @Headers('token') token: string,
+  ): Promise<string> {
+    throw new NotImplementedException();
+  }
+
+  @ApiOperation({
+    summary: 'Create new deposit in content. To create you need to be admin.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Return id of created deposit.',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Bad request.',
+  })
+  @ApiResponse({
+    status: 403,
+    description: 'Forbidden.',
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'Internal error.',
+  })
+  @Post('deposit')
+  async createDepositDescription(
+    @Body() depositDescriptionDto: DepositDescriptionDto,
+    @Headers('token') token: string,
+  ): Promise<string> {
     throw new NotImplementedException();
   }
 
