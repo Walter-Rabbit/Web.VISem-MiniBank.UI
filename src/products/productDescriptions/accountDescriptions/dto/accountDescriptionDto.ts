@@ -1,4 +1,4 @@
-import { ProductDescriptionDto } from './productDescriptionDto';
+import { ProductDescriptionDto } from '../../dto/productDescriptionDto';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class AccountDescriptionDto extends ProductDescriptionDto {

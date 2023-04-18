@@ -1,11 +1,15 @@
 import { Module } from '@nestjs/common';
-import { ProductDescriptionsController } from './productDescriptions.conroller';
-import { ProductDescriptionsService } from './productDescriptions.service';
-import { PrismaClient } from '@prisma/client';
+import { AccountDescriptionsModule } from './accountDescriptions/accountDescriptions.module';
+import { CreditDescriptionsModule } from './creditDescriptions/creditDescriptions.module';
+import { DepositDescriptionsModule } from './depositDescriptions/depositDescriptions.module';
 
 @Module({
-  imports: [],
-  controllers: [ProductDescriptionsController],
-  providers: [ProductDescriptionsService, PrismaClient],
+  imports: [
+    AccountDescriptionsModule,
+    CreditDescriptionsModule,
+    DepositDescriptionsModule,
+  ],
+  controllers: [],
+  providers: [],
 })
 export class ProductDescriptionsModule {}
