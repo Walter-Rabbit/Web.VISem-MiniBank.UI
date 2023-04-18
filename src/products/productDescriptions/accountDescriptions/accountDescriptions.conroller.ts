@@ -4,17 +4,13 @@ import {
   Delete,
   Get,
   Headers,
-  Param,
   Patch,
   Post,
   Query,
 } from '@nestjs/common';
 import { AccountDescriptionsService } from './accountDescriptions.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { ProductDescriptionDto } from '../dto/productDescriptionDto';
 import { AccountDescriptionDto } from './dto/accountDescriptionDto';
-import { CreditDescriptionDto } from '../creditDescriptions/dto/creditDescriptionDto';
-import { DepositDescriptionDto } from '../depositDescriptions/dto/depositDescriptionDto';
 
 @ApiTags('accountDescriptions')
 @Controller('accountDescriptions')

@@ -1,30 +1,28 @@
 import {
-  Body,
   Controller,
-  Delete,
-  Get,
-  Headers,
-  Patch,
   Post,
+  Body,
+  Headers,
+  Get,
   Query,
+  Patch,
+  Delete,
 } from '@nestjs/common';
-import { DepositDescriptionsService } from './depositDescriptions.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { DepositDescriptionDto } from './dto/depositDescriptionDto';
+import { DepositsService } from './deposits.sercvice';
+import { DepositDto } from './dto/depositDto';
 
-@ApiTags('depositDescriptions')
-@Controller('depositDescriptions')
-export class DepositDescriptionsController {
-  constructor(
-    private readonly depositDescriptionsService: DepositDescriptionsService,
-  ) {}
+@ApiTags('products')
+@Controller('products')
+export class DepositsController {
+  constructor(private readonly depositsService: DepositsService) {}
 
   @ApiOperation({
-    summary: 'Create new deposit in catalog. To create you need to be admin.',
+    summary: 'Create new deposit for client. To create you need to be client.',
   })
   @ApiResponse({
     status: 200,
-    description: 'Return id of created deposit.',
+    description: 'Id of created deposit.',
   })
   @ApiResponse({
     status: 400,
@@ -40,34 +38,44 @@ export class DepositDescriptionsController {
   })
   @Post()
   async create(
-    @Body() depositDescriptionDto: DepositDescriptionDto,
+    @Body() depositDto: DepositDto,
     @Headers('token') token: string,
   ): Promise<string> {
-    return this.depositDescriptionsService.create(depositDescriptionDto);
+    return this.depositsService.create(depositDto);
   }
 
   @ApiOperation({
-    summary: 'Get deposit from catalog.',
+    summary:
+      'Get specified deposit. ' +
+      'Client may get only his deposit, ' +
+      'admin may get any deposit.',
   })
   @ApiResponse({
     status: 200,
-    description: 'Return deposit description dto.',
+    description: 'Return deposit dto.',
   })
   @ApiResponse({
     status: 400,
     description: 'Bad request.',
   })
   @ApiResponse({
+    status: 403,
+    description: 'Forbidden.',
+  })
+  @ApiResponse({
     status: 500,
     description: 'Internal error.',
   })
   @Get()
-  async get(@Query('id') id: number): Promise<DepositDescriptionDto> {
-    return this.depositDescriptionsService.get(id);
+  async get(
+    @Query('id') id: string,
+    @Headers('token') token: string,
+  ): Promise<DepositDto> {
+    return this.depositsService.get(id);
   }
 
   @ApiOperation({
-    summary: 'Update deposit in content. To update you need to be admin.',
+    summary: 'Update deposit for client. To update you need to be admin.',
   })
   @ApiResponse({
     status: 200,
@@ -87,18 +95,18 @@ export class DepositDescriptionsController {
   })
   @Patch()
   async update(
-    @Body() depositDescriptionDto: DepositDescriptionDto,
+    @Body() depositDto: DepositDto,
     @Headers('token') token: string,
   ): Promise<void> {
-    return this.depositDescriptionsService.update(depositDescriptionDto);
+    return this.depositsService.update(depositDto);
   }
 
   @ApiOperation({
-    summary: 'Delete deposit from catalog. To delete you need to be admin.',
+    summary: 'Get specified deposit. To delete you need to be admin.',
   })
   @ApiResponse({
     status: 200,
-    description: 'Deposit successfully deleted.',
+    description: 'deposit successfully deleted.',
   })
   @ApiResponse({
     status: 400,
@@ -117,6 +125,6 @@ export class DepositDescriptionsController {
     @Query('id') id: string,
     @Headers('token') token: string,
   ): Promise<void> {
-    return this.depositDescriptionsService.delete(id);
+    return this.depositsService.delete(id);
   }
 }

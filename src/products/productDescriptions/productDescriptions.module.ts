@@ -9,7 +9,5 @@ import { DepositDescriptionsModule } from './depositDescriptions/depositDescript
     CreditDescriptionsModule,
     DepositDescriptionsModule,
   ],
-  controllers: [],
-  providers: [],
 })
 export class ProductDescriptionsModule {}
