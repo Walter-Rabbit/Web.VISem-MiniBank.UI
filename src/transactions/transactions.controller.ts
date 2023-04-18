@@ -1,11 +1,11 @@
 import {
   Controller,
-  NotImplementedException,
   Post,
   Body,
   Headers,
   Get,
   Param,
+  Query,
 } from '@nestjs/common';
 import { TransactionsService } from './transactions.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
@@ -36,19 +36,17 @@ export class TransactionsController {
     status: 500,
     description: 'Internal error.',
   })
-  @Post('make-transaction')
-  makeTransaction(
+  @Post()
+  async create(
     @Body() transactionDto: TransactionDto,
     @Headers('token') token: string,
-  ) {
-    throw new NotImplementedException();
+  ): Promise<string> {
+    return this.transactionsService.create(transactionDto);
   }
 
   @ApiOperation({
     summary:
-      'Get specified transaction. ' +
-      'Client may get only his transactions, ' +
-      'admin may get any transaction.',
+      'Get transaction between two products. To get you need to be client',
   })
   @ApiResponse({
     status: 200,
@@ -67,10 +65,10 @@ export class TransactionsController {
     description: 'Internal error.',
   })
   @Get()
-  getTransaction(
-    @Param() id: number,
+  async get(
+    @Query('id') transactionId: string,
     @Headers('token') token: string,
-  ): TransactionDto {
-    throw new NotImplementedException();
+  ): Promise<TransactionDto> {
+    return this.transactionsService.get(transactionId);
   }
 }

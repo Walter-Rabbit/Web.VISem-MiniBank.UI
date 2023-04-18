@@ -1,20 +1,27 @@
 import { Injectable, NotImplementedException } from '@nestjs/common';
+import { TransactionDto } from './dto/transactionDto';
+import { PrismaClient } from '@prisma/client';
+import { uuid } from 'uuidv4';
 
 @Injectable()
 export class TransactionsService {
-  makeTransaction(yourAccountId, targetAccountId, amount: number): void {
-    throw new NotImplementedException();
+  constructor(private readonly prismaClient: PrismaClient) {}
+
+  async create(transactionDto: TransactionDto): Promise<string> {
+    transactionDto.id = uuid();
+
+    await this.prismaClient.transaction.create({
+      data: transactionDto,
+    });
+
+    return transactionDto.id;
   }
 
-  requestTransaction(yourAccountId, requestingAccountId, amount: number): void {
-    throw new NotImplementedException();
-  }
-
-  sendMoneyToYourAnotherProduct(
-    productId,
-    targetProductId,
-    amount: number,
-  ): string {
-    throw new NotImplementedException();
+  async get(transactionId: string): Promise<TransactionDto> {
+    return this.prismaClient.transaction.findUnique({
+      where: {
+        id: transactionId,
+      },
+    });
   }
 }
