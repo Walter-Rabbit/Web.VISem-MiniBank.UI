@@ -12,8 +12,8 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { DepositsService } from './deposits.sercvice';
 import { DepositDto } from './dto/depositDto';
 
-@ApiTags('products')
-@Controller('products')
+@ApiTags('deposits')
+@Controller('deposits')
 export class DepositsController {
   constructor(private readonly depositsService: DepositsService) {}
 
@@ -66,7 +66,7 @@ export class DepositsController {
     status: 500,
     description: 'Internal error.',
   })
-  @Get()
+  @Get('get')
   async get(
     @Query('id') id: string,
     @Headers('token') token: string,

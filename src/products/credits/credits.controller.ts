@@ -12,8 +12,8 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreditsService } from './credits.sercvice';
 import { CreditDto } from './dto/creditDto';
 
-@ApiTags('products')
-@Controller('products')
+@ApiTags('credits')
+@Controller('credits')
 export class CreditsController {
   constructor(private readonly creditsService: CreditsService) {}
 
@@ -66,7 +66,7 @@ export class CreditsController {
     status: 500,
     description: 'Internal error.',
   })
-  @Get()
+  @Get('get')
   async get(
     @Query('id') id: string,
     @Headers('token') token: string,

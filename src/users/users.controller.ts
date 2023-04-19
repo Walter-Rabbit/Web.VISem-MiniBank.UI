@@ -63,8 +63,8 @@ export class UsersController {
     description: 'Internal error.',
   })
   @Post('register')
-  register(@Body() clientDto: ClientDto): string {
-    throw new NotImplementedException();
+  async register(@Body() clientDto: ClientDto): Promise<string> {
+    return this.usersService.createClient(clientDto);
   }
 
   @ApiOperation({
