@@ -62,8 +62,28 @@ export class CreditDescriptionsController {
     description: 'Internal error.',
   })
   @Get()
-  async get(@Query('id') id: number): Promise<CreditDescriptionDto> {
+  async get(@Query('id') id: string): Promise<CreditDescriptionDto> {
     return this.creditDescriptionsService.get(id);
+  }
+
+  @ApiOperation({
+    summary: 'Get all credits from catalog.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Return array of credit description dtos.',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Bad request.',
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'Internal error.',
+  })
+  @Get('all')
+  async getAll(): Promise<CreditDescriptionDto[]> {
+    return this.creditDescriptionsService.getAll();
   }
 
   @ApiOperation({

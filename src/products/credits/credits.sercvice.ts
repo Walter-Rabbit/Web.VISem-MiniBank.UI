@@ -2,6 +2,7 @@ import { Injectable, NotImplementedException } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
 import { uuid } from 'uuidv4';
 import { CreditDto } from './dto/creditDto';
+import { AccountDto } from '../accounts/dto/accountDto';
 
 @Injectable()
 export class CreditsService {
@@ -21,6 +22,14 @@ export class CreditsService {
     return this.prismaClient.credit.findUnique({
       where: {
         id: creditId,
+      },
+    });
+  }
+
+  async getAllByClient(clientId: string): Promise<CreditDto[]> {
+    return this.prismaClient.credit.findMany({
+      where: {
+        ownerId: clientId,
       },
     });
   }

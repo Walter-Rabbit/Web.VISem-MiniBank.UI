@@ -11,6 +11,7 @@ import {
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { DepositsService } from './deposits.sercvice';
 import { DepositDto } from './dto/depositDto';
+import { AccountDto } from '../accounts/dto/accountDto';
 
 @ApiTags('deposits')
 @Controller('deposits')
@@ -72,6 +73,33 @@ export class DepositsController {
     @Headers('token') token: string,
   ): Promise<DepositDto> {
     return this.depositsService.get(id);
+  }
+
+  @ApiOperation({
+    summary: 'Get all deposits for client',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Return array of deposit dtos.',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Bad request.',
+  })
+  @ApiResponse({
+    status: 403,
+    description: 'Forbidden.',
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'Internal error.',
+  })
+  @Get('get-all')
+  async getAll(
+    @Query('client-id') clientId: string,
+    @Headers('token') token: string,
+  ): Promise<DepositDto[]> {
+    return this.depositsService.getAllByClient(clientId);
   }
 
   @ApiOperation({

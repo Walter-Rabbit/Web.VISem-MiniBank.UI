@@ -25,6 +25,14 @@ export class AccountsService {
     });
   }
 
+  async getAllByClient(clientId: string): Promise<AccountDto[]> {
+    return this.prismaClient.account.findMany({
+      where: {
+        ownerId: clientId,
+      },
+    });
+  }
+
   async update(accountDto: AccountDto): Promise<void> {
     await this.prismaClient.account.update({
       where: {

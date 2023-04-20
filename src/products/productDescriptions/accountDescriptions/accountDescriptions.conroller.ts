@@ -62,8 +62,28 @@ export class AccountDescriptionsController {
     description: 'Internal error.',
   })
   @Get()
-  async get(@Query('id') id: number): Promise<AccountDescriptionDto> {
+  async get(@Query('id') id: string): Promise<AccountDescriptionDto> {
     return this.accountDescriptionsService.get(id);
+  }
+
+  @ApiOperation({
+    summary: 'Get all accounts from catalog.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Return array of account description dtos.',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Bad request.',
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'Internal error.',
+  })
+  @Get('all')
+  async getAll(): Promise<AccountDescriptionDto[]> {
+    return this.accountDescriptionsService.getAll();
   }
 
   @ApiOperation({

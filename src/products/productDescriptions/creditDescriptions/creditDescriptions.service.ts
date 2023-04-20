@@ -17,12 +17,16 @@ export class CreditDescriptionsService {
     return creditDescriptionDto.id;
   }
 
-  async get(creditDescriptionId): Promise<CreditDescriptionDto> {
+  async get(creditDescriptionId: string): Promise<CreditDescriptionDto> {
     return this.prismaClient.creditDescription.findUnique({
       where: {
         id: creditDescriptionId,
       },
     });
+  }
+
+  async getAll(): Promise<CreditDescriptionDto[]> {
+    return this.prismaClient.creditDescription.findMany();
   }
 
   async update(creditDescriptionDto: CreditDescriptionDto): Promise<void> {

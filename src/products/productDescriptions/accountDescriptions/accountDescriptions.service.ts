@@ -17,7 +17,11 @@ export class AccountDescriptionsService {
     return accountDescriptionDto.id;
   }
 
-  async get(accountDescriptionId): Promise<AccountDescriptionDto> {
+  async getAll(): Promise<AccountDescriptionDto[]> {
+    return this.prismaClient.accountDescription.findMany();
+  }
+
+  async get(accountDescriptionId: string): Promise<AccountDescriptionDto> {
     return this.prismaClient.accountDescription.findUnique({
       where: {
         id: accountDescriptionId,

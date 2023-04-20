@@ -75,6 +75,33 @@ export class AccountsController {
   }
 
   @ApiOperation({
+    summary: 'Get all accounts for client',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Return array of account dtos.',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Bad request.',
+  })
+  @ApiResponse({
+    status: 403,
+    description: 'Forbidden.',
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'Internal error.',
+  })
+  @Get('get-all')
+  async getAll(
+    @Query('client-id') clientId: string,
+    @Headers('token') token: string,
+  ): Promise<AccountDto[]> {
+    return this.accountsService.getAllByClient(clientId);
+  }
+
+  @ApiOperation({
     summary: 'Update account for client. To update you need to be admin.',
   })
   @ApiResponse({

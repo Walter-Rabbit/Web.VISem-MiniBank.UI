@@ -62,8 +62,28 @@ export class DepositDescriptionsController {
     description: 'Internal error.',
   })
   @Get()
-  async get(@Query('id') id: number): Promise<DepositDescriptionDto> {
+  async get(@Query('id') id: string): Promise<DepositDescriptionDto> {
     return this.depositDescriptionsService.get(id);
+  }
+
+  @ApiOperation({
+    summary: 'Get deposit from catalog.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Return deposit description dto.',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Bad request.',
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'Internal error.',
+  })
+  @Get('all')
+  async getAll(): Promise<DepositDescriptionDto[]> {
+    return this.depositDescriptionsService.getAll();
   }
 
   @ApiOperation({
