@@ -40,7 +40,18 @@ export class AccountsController {
   async create(
     @Body() accountDto: AccountDto,
     @Headers('token') token: string,
-  ): Promise<string> {
+  ): Promise<string | any> {
+    if (
+      accountDto.ownerId == null ||
+      accountDto.descriptionId == null ||
+      accountDto.serviceEndDate == null
+    ) {
+      return {
+        statusCode: 400,
+        description: 'One of fields is null.',
+      };
+    }
+
     return this.accountsService.create(accountDto);
   }
 

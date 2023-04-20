@@ -1,8 +1,7 @@
-import { Injectable, NotImplementedException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
 import { uuid } from 'uuidv4';
 import { DepositDto } from './dto/depositDto';
-import { CreditDto } from '../credits/dto/creditDto';
 
 @Injectable()
 export class DepositsService {

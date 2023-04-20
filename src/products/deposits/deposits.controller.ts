@@ -41,7 +41,18 @@ export class DepositsController {
   async create(
     @Body() depositDto: DepositDto,
     @Headers('token') token: string,
-  ): Promise<string> {
+  ): Promise<string | any> {
+    if (
+      depositDto.ownerId == null ||
+      depositDto.descriptionId == null ||
+      depositDto.serviceEndDate == null
+    ) {
+      return {
+        statusCode: 400,
+        description: 'One of fields is null.',
+      };
+    }
+
     return this.depositsService.create(depositDto);
   }
 

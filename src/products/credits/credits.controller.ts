@@ -41,7 +41,18 @@ export class CreditsController {
   async create(
     @Body() creditDto: CreditDto,
     @Headers('token') token: string,
-  ): Promise<string> {
+  ): Promise<string | any> {
+    if (
+      creditDto.ownerId == null ||
+      creditDto.descriptionId == null ||
+      creditDto.serviceEndDate == null
+    ) {
+      return {
+        statusCode: 400,
+        description: 'One of fields is null.',
+      };
+    }
+
     return this.creditsService.create(creditDto);
   }
 

@@ -1,4 +1,4 @@
-import { Injectable, NotImplementedException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
 import { AccountDto } from './dto/accountDto';
 import { uuid } from 'uuidv4';
@@ -9,6 +9,7 @@ export class AccountsService {
 
   async create(accountDto: AccountDto): Promise<string> {
     accountDto.id = uuid();
+    accountDto.isActive = true;
 
     await this.prismaClient.account.create({
       data: accountDto,
