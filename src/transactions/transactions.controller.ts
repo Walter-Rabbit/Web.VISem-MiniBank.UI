@@ -71,4 +71,32 @@ export class TransactionsController {
   ): Promise<TransactionDto> {
     return this.transactionsService.get(transactionId);
   }
+
+  @ApiOperation({
+    summary:
+      'Get all transactions connected to client. To get you need to be client',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Return array of transaction dtos.',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Bad request.',
+  })
+  @ApiResponse({
+    status: 403,
+    description: 'Forbidden.',
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'Internal error.',
+  })
+  @Get('all-by-client')
+  async getAllByClient(
+    @Query('client-id') clientId: string,
+    @Headers('token') token: string,
+  ): Promise<TransactionDto[]> {
+    return this.transactionsService.getAllByClient(clientId);
+  }
 }

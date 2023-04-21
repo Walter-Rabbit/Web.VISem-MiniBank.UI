@@ -105,8 +105,8 @@ export class CreditsController {
     status: 500,
     description: 'Internal error.',
   })
-  @Get('get-all')
-  async getAll(
+  @Get('get-all-by-client')
+  async getAllByClient(
     @Query('client-id') clientId: string,
     @Headers('token') token: string,
   ): Promise<CreditDto[]> {

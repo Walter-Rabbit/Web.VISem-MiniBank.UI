@@ -41,8 +41,25 @@ export class TransactionsService {
     });
   }
 
+  async getAllByClient(clientId: string): Promise<TransactionDto[]> {
+    const clientProductIds = await this.getProductsIdsByClient(clientId);
+
+    return this.prismaClient.transaction.findMany({
+      where: {
+        OR: [
+          {
+            senderProductId: { in: clientProductIds },
+          },
+          {
+            receiverProductId: { in: clientProductIds },
+          },
+        ],
+      },
+    });
+  }
+
   private async getProduct(
-    productId,
+    productId: string,
   ): Promise<{ productDto: ProductDto; type: string }> {
     const account = await this.prismaClient.account.findUnique({
       where: {
@@ -102,5 +119,31 @@ export class TransactionsService {
     } else {
       throw new Error('Incorrect type');
     }
+  }
+
+  private async getProductsIdsByClient(clientId: string): Promise<string[]> {
+    const clientProductIds = [];
+    const accounts = await this.prismaClient.account.findMany({
+      where: { ownerId: clientId },
+    });
+    for (const i of accounts) {
+      clientProductIds.push(i.id);
+    }
+
+    const credits = await this.prismaClient.credit.findMany({
+      where: { ownerId: clientId },
+    });
+    for (const i of credits) {
+      clientProductIds.push(i.id);
+    }
+
+    const deposits = await this.prismaClient.deposit.findMany({
+      where: { ownerId: clientId },
+    });
+    for (const i of deposits) {
+      clientProductIds.push(i.id);
+    }
+
+    return clientProductIds;
   }
 }

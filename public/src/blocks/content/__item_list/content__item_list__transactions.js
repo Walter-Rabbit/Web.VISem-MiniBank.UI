@@ -6,79 +6,59 @@ export default function content__item_list__transactions() {
       return;
     }
 
-    let savedLis = window.localStorage.getItem('history');
+    let client_id = window.localStorage.getItem('clientId');
+    if (client_id == null) {
+      client_id = window.prompt(
+        'Enter client id: ',
+        '00000000-0000-0000-0000-000000000000',
+      );
 
-    if (savedLis !== null) {
-      let tempUl = document.createElement('ul');
-      tempUl.innerHTML = savedLis;
+      window.localStorage.setItem('clientId', client_id);
+    }
 
-      for (let elm of tempUl.children) {
-        let li = document.createElement('li');
-        let div = document.createElement('div');
-        div.className = 'item';
+    let transactions = await fetch(
+      'http://localhost:3000/transaction/all-by-client' +
+        '?client-id=' +
+        client_id,
+      {
+        method: 'GET',
+      },
+    )
+      .then((response) => response.text())
+      .then((text) => JSON.parse(text));
 
-        let p1 = document.createElement('p');
-        p1.className = 'item__title';
-        p1.textContent = elm.children[0].children[0].textContent;
+    for (let tr of transactions) {
+      let li = document.createElement('li');
+      let div = document.createElement('div');
+      div.className = 'item';
+      let transaction = document.createElement('div');
+      transaction.className = 'item';
 
-        let p2 = document.createElement('p');
-        p2.className = 'item__description';
-        p2.textContent = elm.children[0].children[2].textContent;
-
-        let p3 = document.createElement('p');
-        p3.className = 'item__date';
-        p3.textContent = elm.children[0].children[1].textContent;
-
-        div.append(p1);
-        div.append(p2);
-        div.append(p3);
-
-        li.append(div);
-        ul.append(li);
+      let p_amount = document.createElement('p');
+      let amount = tr['amount'];
+      if (amount >= 0) {
+        p_amount.className = 'transaction__positive_balance';
+      } else {
+        p_amount.className = 'transaction__negative_balance';
       }
-    } else {
-      let transactions = await fetch(
-        'https://639897dc044fa481d6a38d71.mockapi.io/Transaction',
-        {
-          method: 'GET',
-        },
-      )
-        .then((response) => response.text())
-        .then((text) => JSON.parse(text));
+      p_amount.textContent = amount + 'руб.';
+      transaction.append(p_amount);
 
-      for (let tr of transactions) {
-        let li = document.createElement('li');
-        let div = document.createElement('div');
-        div.className = 'item';
-        let transaction = document.createElement('div');
-        transaction.className = 'item';
+      let p_description = document.createElement('p');
+      p_description.className = 'item__description';
+      p_description.textContent = tr['receiverProductId'];
+      transaction.append(p_description);
 
-        let p_amount = document.createElement('p');
-        let amount = tr['amount'];
-        if (amount >= 0) {
-          p_amount.className = 'transaction__positive_balance';
-        } else {
-          p_amount.className = 'transaction__negative_balance';
-        }
-        p_amount.textContent = amount + 'руб.';
-        transaction.append(p_amount);
+      let p_date = document.createElement('p');
+      p_date.className = 'transaction__date';
+      let date = new Date(tr['date']);
+      p_date.textContent = `${date.getDate() + 1}.${
+        date.getMonth() + 1
+      }.${date.getFullYear()}`;
+      transaction.append(p_date);
 
-        let p_description = document.createElement('p');
-        p_description.className = 'item__description';
-        p_description.textContent = tr['target'];
-        transaction.append(p_description);
-
-        let p_date = document.createElement('p');
-        p_date.className = 'transaction__date';
-        let date = new Date(tr['date']);
-        p_date.textContent = `${date.getDate() + 1}.${
-          date.getMonth() + 1
-        }.${date.getFullYear()}`;
-        transaction.append(p_date);
-
-        li.append(transaction);
-        ul.append(li);
-      }
+      li.append(transaction);
+      ul.append(li);
     }
   });
 }
