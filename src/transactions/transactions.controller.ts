@@ -1,18 +1,11 @@
-import {
-  Controller,
-  Post,
-  Body,
-  Headers,
-  Get,
-  Param,
-  Query,
-} from '@nestjs/common';
+import { Controller, Post, Body, Headers, Get, Query } from '@nestjs/common';
 import { TransactionsService } from './transactions.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { TransactionDto } from './dto/transactionDto';
+import { MakeTransactionDto } from './dto/makeTransactionDto';
 
 @ApiTags('transactions')
-@Controller('transaction')
+@Controller('transactions')
 export class TransactionsController {
   constructor(private readonly transactionsService: TransactionsService) {}
 
@@ -38,10 +31,17 @@ export class TransactionsController {
   })
   @Post()
   async create(
-    @Body() transactionDto: TransactionDto,
+    @Body() makeTransactionDto: MakeTransactionDto,
     @Headers('token') token: string,
-  ): Promise<string> {
-    return this.transactionsService.create(transactionDto);
+  ): Promise<string | any> {
+    try {
+      return this.transactionsService.create(makeTransactionDto);
+    } catch (e) {
+      return {
+        statusCode: 400,
+        message: e.message,
+      };
+    }
   }
 
   @ApiOperation({

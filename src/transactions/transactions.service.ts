@@ -1,31 +1,41 @@
-import { Injectable, NotImplementedException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { TransactionDto } from './dto/transactionDto';
 import { PrismaClient } from '@prisma/client';
 import { uuid } from 'uuidv4';
 import { ProductDto } from '../products/dto/productDto';
+import { MakeTransactionDto } from './dto/makeTransactionDto';
 
 @Injectable()
 export class TransactionsService {
   constructor(private readonly prismaClient: PrismaClient) {}
 
-  async create(transactionDto: TransactionDto): Promise<string> {
-    const sender = await this.getProduct(transactionDto.senderProductId);
-    const receiver = await this.getProduct(transactionDto.receiverProductId);
+  async create(makeTransactionDto: MakeTransactionDto): Promise<string> {
+    const sender = await this.getProduct(makeTransactionDto.senderProductId);
+    const receiver = await this.getProduct(
+      makeTransactionDto.receiverProductId,
+    );
 
     if (sender == null || receiver == null) {
       throw new Error('There is no such product.');
     }
 
-    sender.productDto.amount -= transactionDto.amount;
+    sender.productDto.amount -= makeTransactionDto.amount;
     if (sender.productDto.amount < 0) {
       throw new Error('Negative balance.');
     }
-    receiver.productDto.amount += transactionDto.amount;
+    receiver.productDto.amount += makeTransactionDto.amount;
 
     await this.updateProduct(sender.productDto, sender.type);
     await this.updateProduct(receiver.productDto, sender.type);
 
+    const transactionDto = new TransactionDto();
+    transactionDto.amount = makeTransactionDto.amount;
+    transactionDto.senderProductId = makeTransactionDto.senderProductId;
+    transactionDto.receiverProductId = makeTransactionDto.receiverProductId;
+
+    transactionDto.date = new Date();
     transactionDto.id = uuid();
+
     await this.prismaClient.transaction.create({
       data: transactionDto,
     });
@@ -55,6 +65,11 @@ export class TransactionsService {
           },
         ],
       },
+      orderBy: [
+        {
+          date: 'desc',
+        },
+      ],
     });
   }
 

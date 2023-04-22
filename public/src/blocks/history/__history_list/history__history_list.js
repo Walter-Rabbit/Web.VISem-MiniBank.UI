@@ -21,9 +21,7 @@ export default function history__history_list() {
     }
 
     let transactions = await fetch(
-      'http://localhost:3000/transaction/all-by-client' +
-        '?client-id=' +
-        client_id,
+      '/transactions/all-by-client' + '?client-id=' + client_id,
       {
         method: 'GET',
       },

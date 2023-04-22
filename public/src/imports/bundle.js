@@ -23,9 +23,7 @@ function cards__cards_list() {
     let cards_list = document.getElementById('main_page_cards');
 
     let cards = await fetch(
-      'http://localhost:3000/accounts/get-all-by-client' +
-        '?client-id=' +
-        client_id,
+      '/accounts/get-all-by-client' + '?client-id=' + client_id,
       {
         method: 'GET',
       },
@@ -36,9 +34,7 @@ function cards__cards_list() {
     applyCards(cards, 'Счёт', cards_list);
 
     cards = await fetch(
-      'http://localhost:3000/credits/get-all-by-client' +
-        '?client-id=' +
-        client_id,
+      '/credits/get-all-by-client' + '?client-id=' + client_id,
       {
         method: 'GET',
       },
@@ -49,9 +45,7 @@ function cards__cards_list() {
     applyCards(cards, 'Кредит', cards_list);
 
     cards = await fetch(
-      'http://localhost:3000/deposits/get-all-by-client' +
-        '?client-id=' +
-        client_id,
+      '/deposits/get-all-by-client' + '?client-id=' + client_id,
       {
         method: 'GET',
       },
@@ -75,9 +69,9 @@ function cards__cards_list() {
 
       // TODO: Mock some image
       /*let image = document.createElement('img');
-                                    image.className = 'card__img';
-                                    image.src = c['cardImage'];
-                                    card.append(image);*/
+                                                            image.className = 'card__img';
+                                                            image.src = c['cardImage'];
+                                                            card.append(image);*/
 
       let image = document.createElement('img');
       image.className = 'card__img';
@@ -115,9 +109,7 @@ function content__item_list__transactions() {
     }
 
     let transactions = await fetch(
-      'http://localhost:3000/transaction/all-by-client' +
-        '?client-id=' +
-        client_id,
+      '/transactions/all-by-client' + '?client-id=' + client_id,
       {
         method: 'GET',
       },
@@ -202,9 +194,7 @@ function history__history_list() {
     }
 
     let transactions = await fetch(
-      'http://localhost:3000/transaction/all-by-client' +
-        '?client-id=' +
-        client_id,
+      '/transactions/all-by-client' + '?client-id=' + client_id,
       {
         method: 'GET',
       },
@@ -274,54 +264,48 @@ function navigation_list__button() {
   });
 }
 
-;// CONCATENATED MODULE: ./public/src/blocks/function_list/__button/function_list__button__make_transaction.js
-function function_list__button__make_transaction() {
-  let ul = document.getElementById('main_page_history');
+;// CONCATENATED MODULE: ./public/src/blocks/make_transaction/__button/make_transaction__button__commit.js
+async function make_transaction__button__commit() {
+  let sender_product_id = window.prompt(
+    'Enter product id which you want to send money from: ',
+    '00000000-0000-0000-0000-000000000000',
+  );
 
-  let li = document.createElement('li');
+  let receiver_product_id = window.prompt(
+    'Enter product id which you want to send money to: ',
+    '00000000-0000-0000-0000-000000000000',
+  );
 
-  let div = document.createElement('div');
-  div.className = 'transaction';
+  let amount = Number(window.prompt('Enter RUB transfer amount: ', '100'));
 
-  let p1 = document.createElement('p');
-
-  let number = Number(window.prompt('Enter RUB transfer amount: ', '100'));
-
-  if (number === 0) {
+  if (amount === 0) {
     return;
   }
 
-  if (number < 0) {
+  if (amount < 0) {
     window.alert('Amount must be positive number');
     return;
   }
 
-  p1.className = 'transaction__negative_balance';
-  p1.textContent = '-' + number.toString() + 'руб.';
+  let make_transaction_dto = {
+    amount: amount,
+    receiverProductId: receiver_product_id,
+    senderProductId: sender_product_id,
+  };
 
-  let p2 = document.createElement('p');
-  p2.className = 'transaction__date';
-  let date = new Date();
-  p2.textContent = `${date.getDate() + 1}.${
-    date.getMonth() + 1
-  }.${date.getFullYear()}`;
-
-  let p3 = document.createElement('p');
-  p3.textContent = 'Valery Shevchenko';
-  p3.style.visibility = 'hidden';
-  p3.style.height = '0';
-  p3.style.width = '0';
-
-  div.appendChild(p1);
-  div.appendChild(p2);
-  div.appendChild(p3);
-  li.appendChild(div);
-  ul.insertBefore(li, ul.firstChild);
-
-  window.localStorage.setItem('history', ul.innerHTML);
-
-  let section = document.getElementsByClassName('history');
-  section[0].style.visibility = 'visible';
+  await fetch('/transactions', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    mode: 'cors',
+    body: JSON.stringify(make_transaction_dto),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data.message);
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
 }
 
 ;// CONCATENATED MODULE: ./public/src/imports/imports.js

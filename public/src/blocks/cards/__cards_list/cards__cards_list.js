@@ -19,9 +19,7 @@ export default function cards__cards_list() {
     let cards_list = document.getElementById('main_page_cards');
 
     let cards = await fetch(
-      'http://localhost:3000/accounts/get-all-by-client' +
-        '?client-id=' +
-        client_id,
+      '/accounts/get-all-by-client' + '?client-id=' + client_id,
       {
         method: 'GET',
       },
@@ -32,9 +30,7 @@ export default function cards__cards_list() {
     applyCards(cards, 'Счёт', cards_list);
 
     cards = await fetch(
-      'http://localhost:3000/credits/get-all-by-client' +
-        '?client-id=' +
-        client_id,
+      '/credits/get-all-by-client' + '?client-id=' + client_id,
       {
         method: 'GET',
       },
@@ -45,9 +41,7 @@ export default function cards__cards_list() {
     applyCards(cards, 'Кредит', cards_list);
 
     cards = await fetch(
-      'http://localhost:3000/deposits/get-all-by-client' +
-        '?client-id=' +
-        client_id,
+      '/deposits/get-all-by-client' + '?client-id=' + client_id,
       {
         method: 'GET',
       },
@@ -71,9 +65,9 @@ export default function cards__cards_list() {
 
       // TODO: Mock some image
       /*let image = document.createElement('img');
-                                    image.className = 'card__img';
-                                    image.src = c['cardImage'];
-                                    card.append(image);*/
+                                                            image.className = 'card__img';
+                                                            image.src = c['cardImage'];
+                                                            card.append(image);*/
 
       let image = document.createElement('img');
       image.className = 'card__img';

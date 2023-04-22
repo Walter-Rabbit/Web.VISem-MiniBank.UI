@@ -17,9 +17,7 @@ export default function content__item_list__transactions() {
     }
 
     let transactions = await fetch(
-      'http://localhost:3000/transaction/all-by-client' +
-        '?client-id=' +
-        client_id,
+      '/transactions/all-by-client' + '?client-id=' + client_id,
       {
         method: 'GET',
       },
