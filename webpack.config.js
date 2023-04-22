@@ -2,7 +2,7 @@
 const path = require('path');
 
 module.exports = {
-  entry: './public/index.js',
+  entry: './public/src/imports/imports.js',
   output: {
     iife: false,
     filename: 'bundle.js',

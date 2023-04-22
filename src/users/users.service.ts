@@ -7,13 +7,18 @@ import { UserDto } from './dto/userDto';
 import { AdminDto } from './dto/adminDto';
 import { ClientDto } from './dto/clientDto';
 import { JwtService } from '@nestjs/jwt';
+import { PrismaClient } from '@prisma/client';
+import { uuid } from 'uuidv4';
 
 @Injectable()
 export class UsersService {
-  constructor(private jwtService: JwtService) {}
+  constructor(
+    //private jwtService: JwtService,
+    private prismaClient: PrismaClient,
+  ) {}
 
   signIn(email: string, password: string): string {
-    const user = this.get(email);
+    /*const user = this.get(email);
 
     // TODO: Encode pass
     if (user?.encodedPassword !== password) {
@@ -27,7 +32,9 @@ export class UsersService {
       role = 'client';
     }
     const payload = { username: user.email, id: user.id, role: role };
-    return this.jwtService.sign(payload);
+    return this.jwtService.sign(payload);*/
+
+    throw new NotImplementedException();
   }
 
   get(username: string): UserDto | undefined {
@@ -35,8 +42,14 @@ export class UsersService {
     //return this.users.find(user => user.username === username);
   }
 
-  createClient(userDto: UserDto): number {
-    throw new NotImplementedException();
+  async createClient(clientDto: ClientDto): Promise<string> {
+    clientDto.id = uuid();
+
+    await this.prismaClient.client.create({
+      data: clientDto,
+    });
+
+    return clientDto.id;
   }
 
   createAdmin(adminDto: AdminDto): number {

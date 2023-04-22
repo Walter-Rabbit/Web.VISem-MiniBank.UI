@@ -57,4 +57,11 @@ export class AppController {
     const current_page = 'transactions';
     return { current_page };
   }
+
+  @Get('make-transaction')
+  @Render('index')
+  makeTransaction() {
+    const current_page = 'make-transaction';
+    return { current_page };
+  }
 }

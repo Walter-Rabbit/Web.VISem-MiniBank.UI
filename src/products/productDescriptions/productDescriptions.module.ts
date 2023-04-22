@@ -1,10 +1,13 @@
 import { Module } from '@nestjs/common';
-import { ProductDescriptionsController } from './productDescriptions.conroller';
-import { ProductDescriptionsService } from './productDescriptions.service';
+import { AccountDescriptionsModule } from './accountDescriptions/accountDescriptions.module';
+import { CreditDescriptionsModule } from './creditDescriptions/creditDescriptions.module';
+import { DepositDescriptionsModule } from './depositDescriptions/depositDescriptions.module';
 
 @Module({
-  imports: [],
-  controllers: [ProductDescriptionsController],
-  providers: [ProductDescriptionsService],
+  imports: [
+    AccountDescriptionsModule,
+    CreditDescriptionsModule,
+    DepositDescriptionsModule,
+  ],
 })
 export class ProductDescriptionsModule {}

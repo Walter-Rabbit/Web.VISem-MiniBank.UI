@@ -11,7 +11,7 @@ datasource db {
 }
 
 model Client {
-  id              Int       @id @default(autoincrement())
+  id              String    @id @unique
   name            String
   email           String    @unique
   birthDate       DateTime
@@ -22,22 +22,22 @@ model Client {
 }
 
 model Admin {
-  id              Int    @id @default(autoincrement())
+  id              String    @id @unique
   name            String
   email           String
   encodedPassword String
 }
 
 model Transaction {
-  id                Int      @id @default(autoincrement())
+  id                String  @id @unique
   amount            Float
   date              DateTime
-  senderProductId   Int
-  receiverProductId Int
+  senderProductId   String
+  receiverProductId String
 }
 
 model AccountDescription {
-  id           Int       @id @default(autoincrement())
+  id           String   @id @unique
   name         String    @unique
   description  String
   duration     DateTime
@@ -48,7 +48,7 @@ model AccountDescription {
 }
 
 model CreditDescription {
-  id          Int      @id @default(autoincrement())
+  id          String      @id @unique
   name        String   @unique
   description String
   duration    DateTime
@@ -58,7 +58,7 @@ model CreditDescription {
 }
 
 model DepositDescription {
-  id          Int       @id @default(autoincrement())
+  id          String       @id @unique
   name        String    @unique
   description String
   duration    DateTime
@@ -68,33 +68,33 @@ model DepositDescription {
 }
 
 model Account {
-  id             Int                @id @default(autoincrement())
+  id             String             @id @unique
   description    AccountDescription @relation(fields: [descriptionId], references: [id])
-  descriptionId  Int
+  descriptionId  String
   owner          Client             @relation(fields: [ownerId], references: [id])
-  ownerId        Int
+  ownerId        String
   amount         Float
   isActive       Boolean
   serviceEndDate DateTime
 }
 
 model Credit {
-  id             Int               @id @default(autoincrement())
+  id             String            @id @unique
   description    CreditDescription @relation(fields: [descriptionId], references: [id])
-  descriptionId  Int
+  descriptionId  String
   owner          Client            @relation(fields: [ownerId], references: [id])
-  ownerId        Int
+  ownerId        String
   amount         Float
   moneyLeftToPay Float
   serviceEndDate DateTime
 }
 
 model Deposit {
-  id             Int                @id @default(autoincrement())
+  id             String             @id @unique
   description    DepositDescription @relation(fields: [descriptionId], references: [id])
-  descriptionId  Int
+  descriptionId  String
   owner          Client             @relation(fields: [ownerId], references: [id])
-  ownerId        Int
+  ownerId        String
   amount         Float
   moneyPaid      Float
   serviceEndDate DateTime

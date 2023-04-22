@@ -1,0 +1,7 @@
+@media (max-width: 1200px) {
+  main.content {
+    margin-top: 155px;
+    margin-left: 20px;
+    align-items: start;
+  }
+}
