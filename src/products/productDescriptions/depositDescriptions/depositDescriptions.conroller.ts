@@ -25,6 +25,7 @@ export class DepositDescriptionsController {
   @ApiResponse({
     status: 200,
     description: 'Return id of created deposit.',
+    type: String,
   })
   @ApiResponse({
     status: 400,
@@ -52,6 +53,7 @@ export class DepositDescriptionsController {
   @ApiResponse({
     status: 200,
     description: 'Return deposit description dto.',
+    type: DepositDescriptionDto,
   })
   @ApiResponse({
     status: 400,
@@ -72,6 +74,8 @@ export class DepositDescriptionsController {
   @ApiResponse({
     status: 200,
     description: 'Return deposit description dto.',
+    type: DepositDescriptionDto,
+    isArray: true,
   })
   @ApiResponse({
     status: 400,
