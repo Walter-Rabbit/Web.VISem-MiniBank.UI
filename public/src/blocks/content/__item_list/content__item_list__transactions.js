@@ -17,7 +17,10 @@ export default function content__item_list__transactions() {
     }
 
     let transactions = await fetch(
-      '/transactions/all-by-client' + '?client-id=' + client_id,
+      '/transactions/all-by-client' +
+        `?client-id=${client_id}` +
+        '&skip-transactions=0' +
+        '&take-transactions=10',
       {
         method: 'GET',
       },

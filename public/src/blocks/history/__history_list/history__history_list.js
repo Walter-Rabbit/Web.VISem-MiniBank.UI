@@ -21,7 +21,10 @@ export default function history__history_list() {
     }
 
     let transactions = await fetch(
-      '/transactions/all-by-client' + '?client-id=' + client_id,
+      '/transactions/all-by-client' +
+        `?client-id=${client_id}` +
+        '&skip-transactions=0' +
+        '&take-transactions=10',
       {
         method: 'GET',
       },
