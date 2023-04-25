@@ -51,10 +51,16 @@ export class TransactionsService {
     });
   }
 
-  async getAllByClient(clientId: string): Promise<TransactionDto[]> {
+  async getAllByClient(
+    clientId: string,
+    skip: number,
+    take: number,
+  ): Promise<TransactionDto[]> {
     const clientProductIds = await this.getProductsIdsByClient(clientId);
 
     return this.prismaClient.transaction.findMany({
+      skip: Number(skip),
+      take: Number(take),
       where: {
         OR: [
           {

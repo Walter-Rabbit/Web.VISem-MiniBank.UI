@@ -25,6 +25,7 @@ export class CreditDescriptionsController {
   @ApiResponse({
     status: 200,
     description: 'Return id of created credit.',
+    type: String,
   })
   @ApiResponse({
     status: 400,
@@ -52,6 +53,7 @@ export class CreditDescriptionsController {
   @ApiResponse({
     status: 200,
     description: 'Return credit description dto.',
+    type: CreditDescriptionDto,
   })
   @ApiResponse({
     status: 400,
@@ -72,6 +74,8 @@ export class CreditDescriptionsController {
   @ApiResponse({
     status: 200,
     description: 'Return array of credit description dtos.',
+    type: CreditDescriptionDto,
+    isArray: true,
   })
   @ApiResponse({
     status: 400,

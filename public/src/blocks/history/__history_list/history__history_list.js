@@ -10,18 +10,21 @@ export default function history__history_list() {
 
     let history_list = document.getElementById('main_page_history');
 
-    let client_id = window.localStorage.getItem('clientId');
+    let client_id = window.localStorage.getItem('client-id');
     if (client_id == null) {
       client_id = window.prompt(
         'Enter client id: ',
         '00000000-0000-0000-0000-000000000000',
       );
 
-      window.localStorage.setItem('clientId', client_id);
+      window.localStorage.setItem('client-id', client_id);
     }
 
     let transactions = await fetch(
-      '/transactions/all-by-client' + '?client-id=' + client_id,
+      '/transactions/all-by-client' +
+        `?client-id=${client_id}` +
+        '&skip-transactions=0' +
+        '&take-transactions=10',
       {
         method: 'GET',
       },

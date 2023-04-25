@@ -16,6 +16,7 @@ export class TransactionsController {
   @ApiResponse({
     status: 200,
     description: 'Id of created transaction.',
+    type: String,
   })
   @ApiResponse({
     status: 400,
@@ -51,6 +52,7 @@ export class TransactionsController {
   @ApiResponse({
     status: 200,
     description: 'Return transaction dto.',
+    type: TransactionDto,
   })
   @ApiResponse({
     status: 400,
@@ -79,6 +81,8 @@ export class TransactionsController {
   @ApiResponse({
     status: 200,
     description: 'Return array of transaction dtos.',
+    type: TransactionDto,
+    isArray: true,
   })
   @ApiResponse({
     status: 400,
@@ -95,8 +99,10 @@ export class TransactionsController {
   @Get('all-by-client')
   async getAllByClient(
     @Query('client-id') clientId: string,
+    @Query('skip-transactions') skip: number,
+    @Query('take-transactions') take: number,
     @Headers('token') token: string,
   ): Promise<TransactionDto[]> {
-    return this.transactionsService.getAllByClient(clientId);
+    return this.transactionsService.getAllByClient(clientId, skip, take);
   }
 }

@@ -25,6 +25,7 @@ export class AccountDescriptionsController {
   @ApiResponse({
     status: 200,
     description: 'Return id of created account.',
+    type: String,
   })
   @ApiResponse({
     status: 400,
@@ -52,6 +53,7 @@ export class AccountDescriptionsController {
   @ApiResponse({
     status: 200,
     description: 'Return account description dto.',
+    type: AccountDescriptionDto,
   })
   @ApiResponse({
     status: 400,
@@ -72,6 +74,8 @@ export class AccountDescriptionsController {
   @ApiResponse({
     status: 200,
     description: 'Return array of account description dtos.',
+    type: AccountDescriptionDto,
+    isArray: true,
   })
   @ApiResponse({
     status: 400,

@@ -11,7 +11,6 @@ import {
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { DepositsService } from './deposits.sercvice';
 import { DepositDto } from './dto/depositDto';
-import { AccountDto } from '../accounts/dto/accountDto';
 
 @ApiTags('deposits')
 @Controller('deposits')
@@ -24,6 +23,7 @@ export class DepositsController {
   @ApiResponse({
     status: 200,
     description: 'Id of created deposit.',
+    type: String,
   })
   @ApiResponse({
     status: 400,
@@ -65,6 +65,7 @@ export class DepositsController {
   @ApiResponse({
     status: 200,
     description: 'Return deposit dto.',
+    type: DepositDto,
   })
   @ApiResponse({
     status: 400,
@@ -92,6 +93,8 @@ export class DepositsController {
   @ApiResponse({
     status: 200,
     description: 'Return array of deposit dtos.',
+    type: DepositDto,
+    isArray: true,
   })
   @ApiResponse({
     status: 400,
