@@ -2,31 +2,55 @@ export default function content__item_list__transactions() {
   window.addEventListener('load', async function () {
     let ul = document.getElementById('transaction_page_history');
 
-    if (ul === null) {
+    if (ul == null) {
       return;
     }
 
-    let client_id = window.localStorage.getItem('clientId');
+    let client_id = window.localStorage.getItem('client-id');
     if (client_id == null) {
       client_id = window.prompt(
         'Enter client id: ',
         '00000000-0000-0000-0000-000000000000',
       );
 
-      window.localStorage.setItem('clientId', client_id);
+      window.localStorage.setItem('client-id', client_id);
+    }
+
+    const take = 10;
+    let page_number = window.localStorage.getItem('transaction-page-number');
+    if (page_number == null) {
+      page_number = '0';
+      window.localStorage.setItem('transaction-page-number', page_number);
     }
 
     let transactions = await fetch(
       '/transactions/all-by-client' +
         `?client-id=${client_id}` +
-        '&skip-transactions=0' +
-        '&take-transactions=10',
+        `&skip-transactions=${Number(page_number) * take}` +
+        `&take-transactions=${take}`,
       {
         method: 'GET',
       },
     )
       .then((response) => response.text())
       .then((text) => JSON.parse(text));
+
+    if (transactions.length === 0) {
+      page_number--;
+      window.localStorage.setItem('transaction-page-number', page_number);
+
+      transactions = await fetch(
+        '/transactions/all-by-client' +
+          `?client-id=${client_id}` +
+          `&skip-transactions=${Number(page_number) * take}` +
+          `&take-transactions=${take}`,
+        {
+          method: 'GET',
+        },
+      )
+        .then((response) => response.text())
+        .then((text) => JSON.parse(text));
+    }
 
     for (let tr of transactions) {
       let li = document.createElement('li');

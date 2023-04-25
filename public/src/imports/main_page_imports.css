@@ -67,3 +67,5 @@
 @import "../blocks/item/_width/item_width_to1200.css";
 @import "../blocks/make_transaction/__button/make_transaction__button.css";
 @import "../blocks/make_transaction/make_transaction.css";
+@import "../blocks/content/__buttons/__button/content__buttons__button.css";
+@import "../blocks/content/__buttons/content__buttons.css";

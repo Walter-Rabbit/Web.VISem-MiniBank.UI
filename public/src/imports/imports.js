@@ -4,6 +4,8 @@ import footer__loading_time from '../blocks/footer/__loading_time/footer__loadin
 import history__history_list from '../blocks/history/__history_list/history__history_list';
 import navigation_list__button from '../blocks/navigation_list/__button/navigation_list__button';
 import make_transaction__button__commit from '../blocks/make_transaction/__button/make_transaction__button__commit';
+import content__button__next_page from '../blocks/content/__buttons/__button/content__button__next_page';
+import content__button__prev_page from '../blocks/content/__buttons/__button/content__button__prev_page';
 
 cards__cards_list();
 content__item_list__transactions();
