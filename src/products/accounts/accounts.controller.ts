@@ -7,10 +7,14 @@ import {
   Query,
   Patch,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AccountsService } from './accounts.sercvice';
 import { AccountDto } from './dto/accountDto';
+import { Session } from '../../auth/session/session.decorator';
+import { AuthGuard } from '../../auth/auth/auth.guard';
+import { SessionContainer } from 'supertokens-node/recipe/session';
 
 @ApiTags('accounts')
 @Controller('accounts')
@@ -80,9 +84,10 @@ export class AccountsController {
     description: 'Internal error.',
   })
   @Get('get')
+  @UseGuards(new AuthGuard())
   async get(
+    @Session() session: SessionContainer,
     @Query('id') id: string,
-    @Headers('token') token: string,
   ): Promise<AccountDto> {
     return this.accountsService.get(id);
   }
