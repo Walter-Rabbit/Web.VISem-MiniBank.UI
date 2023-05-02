@@ -1,4 +1,4 @@
-export default async function signUpClicked() {
+export default async function item__sign_up() {
   try {
     let email = window.prompt('Enter email: ', 'example@ex.com');
     let password = window.prompt('Enter password: ', 'abcd1234');
@@ -54,7 +54,7 @@ export default async function signUpClicked() {
           console.error('Error:', error);
         });
 
-      window.location.href = '/';
+      window.location.href = '/profile';
     }
   } catch (err) {
     if (err.isSuperTokensGeneralError === true) {

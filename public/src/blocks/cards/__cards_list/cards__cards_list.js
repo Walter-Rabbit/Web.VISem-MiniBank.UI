@@ -55,10 +55,15 @@ export default function cards__cards_list() {
       image.src = '../../img/place_holder_card.png';
       card.append(image);
 
-      let div_type = document.createElement('div');
+      /*let div_type = document.createElement('div');
       div_type.className = 'card__type';
       div_type.textContent = type;
-      card.append(div_type);
+      card.append(div_type);*/
+
+      let div_id = document.createElement('div');
+      div_id.className = 'card__type';
+      div_id.textContent = c['id'];
+      card.append(div_id);
 
       li.append(card);
       cards_list.append(li);

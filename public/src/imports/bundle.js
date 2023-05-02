@@ -59,10 +59,15 @@ function cards__cards_list() {
       image.src = '../../img/place_holder_card.png';
       card.append(image);
 
-      let div_type = document.createElement('div');
+      /*let div_type = document.createElement('div');
       div_type.className = 'card__type';
       div_type.textContent = type;
-      card.append(div_type);
+      card.append(div_type);*/
+
+      let div_id = document.createElement('div');
+      div_id.className = 'card__type';
+      div_id.textContent = c['id'];
+      card.append(div_id);
 
       li.append(card);
       cards_list.append(li);
@@ -249,6 +254,40 @@ function navigation_list__button() {
     if (element != null) {
       element.style.background = '#ffb300';
     }
+  });
+}
+
+;// CONCATENATED MODULE: ./public/src/blocks/content/__item_list/content__item_list__profile.js
+function content__item_list__profile() {
+  window.addEventListener('load', async function () {
+    let div = document.getElementById('profile_page');
+
+    if (div == null) {
+      return;
+    }
+
+    let user = await fetch('/users', {
+      method: 'GET',
+    })
+      .then((response) => response.text())
+      .then((text) => JSON.parse(text));
+
+    div.className = 'item';
+
+    let p_name = document.createElement('p');
+    p_name.className = 'item__title';
+    p_name.textContent = user['name'];
+    div.append(p_name);
+
+    let p_email = document.createElement('p');
+    p_email.className = 'item__description';
+    p_email.textContent = user['email'];
+    div.append(p_email);
+
+    let p_date = document.createElement('p');
+    p_date.className = 'item__date';
+    p_date.textContent = user['birthDate'];
+    div.append(p_date);
   });
 }
 
@@ -480,8 +519,8 @@ function supertokens_init(domain) {
   });
 }
 
-;// CONCATENATED MODULE: ./public/src/extra/sign_in.js
-async function signInClicked() {
+;// CONCATENATED MODULE: ./public/src/blocks/item/item__sign_in.js
+async function item__sign_in() {
   try {
     let email = window.prompt('Enter email: ', 'example@ex.com');
     let password = window.prompt('Enter password: ', 'abcd1234');
@@ -524,8 +563,8 @@ async function signInClicked() {
   }
 }
 
-;// CONCATENATED MODULE: ./public/src/extra/sign_up.js
-async function signUpClicked() {
+;// CONCATENATED MODULE: ./public/src/blocks/item/item__sign_up.js
+async function item__sign_up() {
   try {
     let email = window.prompt('Enter email: ', 'example@ex.com');
     let password = window.prompt('Enter password: ', 'abcd1234');
@@ -581,7 +620,7 @@ async function signUpClicked() {
           console.error('Error:', error);
         });
 
-      window.location.href = '/';
+      window.location.href = '/profile';
     }
   } catch (err) {
     if (err.isSuperTokensGeneralError === true) {
@@ -591,6 +630,34 @@ async function signUpClicked() {
       window.alert('Oops! Something went wrong.');
     }
   }
+}
+
+;// CONCATENATED MODULE: ./public/src/blocks/item/item__create_account.js
+async function item__create_account() {
+  let account_dto = {
+    id: '',
+    descriptionId: '81be05af-183e-4fc8-bdcc-0d2cf7946e6a',
+    ownerId: '',
+    amount: 1000,
+    serviceEndDate: new Date(),
+  };
+
+  await fetch('/accounts', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    mode: 'cors',
+    body: JSON.stringify(account_dto),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data.message);
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+
+  alert('Счёт создан');
+  window.location.href();
 }
 
 ;// CONCATENATED MODULE: ./public/src/imports/imports.js
@@ -606,7 +673,10 @@ async function signUpClicked() {
 
 
 
+
+
 cards__cards_list();
+content__item_list__profile();
 content__item_list__transactions();
 footer__loading_time();
 history__history_list();

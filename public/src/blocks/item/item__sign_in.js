@@ -1,4 +1,4 @@
-export default async function signInClicked() {
+export default async function item__sign_in() {
   try {
     let email = window.prompt('Enter email: ', 'example@ex.com');
     let password = window.prompt('Enter password: ', 'abcd1234');

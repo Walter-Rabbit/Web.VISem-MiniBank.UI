@@ -24,7 +24,6 @@ export class AppController {
   @UseGuards(new AuthGuard({ sessionRequired: false }))
   index(@Session() session: SessionContainer) {
     let current_page = '';
-
     if (session == null) {
       current_page = 'login';
     } else {
