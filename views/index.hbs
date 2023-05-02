@@ -2,70 +2,54 @@
 <html lang="ru">
 
 <head>
-    <meta charset="utf-8">
-    <title>MiniBank</title>
-    <meta name="description" content="Самый лучший в мире банк для самый лучших в мире людей.">
-    <!--  <link href="src/extra/outlines.css" rel="stylesheet">-->
-    <link href="src/imports/main_page_imports.css" rel="stylesheet">
-    <script type="text/javascript" src="src/imports/bundle.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/supertokens/supertokens-web-js/bundle/website.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/supertokens/supertokens-web-js/bundle/supertokens.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/supertokens/supertokens-web-js/bundle/session.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/supertokens/supertokens-web-js/bundle/emailpassword.js"></script>
-    <script>
-        function supertokens_init() {
-            supertokens.init({
-                supertokens: {
-                    connectionURI:
-                            'https://dev-3fee4971e81d11edb88efb40042c40db-eu-west-1.aws.supertokens.io:3572',
-                    apiKey: 'ZPdG3XUsFhfvWGoEXft-lE8Q1bXvd0',
-                },
-                appInfo: {
-                    apiDomain: "http://localhost:3000",
-                    apiBasePath: '/auth',
-                    appName: '...',
-                },
-                recipeList: [
-                    supertokensSession.init(),
-                    supertokensEmailPassword.init(),
-                ],
-            })
-        }
-    </script>
+  <meta charset="utf-8">
+  <title>MiniBank</title>
+  <meta name="description" content="Самый лучший в мире банк для самый лучших в мире людей.">
+  <!--  <link href="src/extra/outlines.css" rel="stylesheet">-->
+  <link href="src/imports/main_page_imports.css" rel="stylesheet">
+  <script type="text/javascript" src="src/imports/bundle.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/supertokens/supertokens-web-js/bundle/website.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/supertokens/supertokens-web-js/bundle/supertokens.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/supertokens/supertokens-web-js/bundle/session.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/supertokens/supertokens-web-js/bundle/emailpassword.js"></script>
 </head>
-<body class="body" onload="supertokens_init()">
+<body class="body" onload="supertokens_init('{{domain_url}}')">
 {{> header }}
 
 {{#if_equals current_page "main_page" }}
-    {{> main_page }}
+  {{> main_page }}
 {{/if_equals}}
 
 {{#if_equals current_page "e404" }}
-    {{> e404 }}
+  {{> e404 }}
 {{/if_equals}}
 
 {{#if_equals current_page "accounts" }}
-    {{> accounts }}
+  {{> accounts }}
 {{/if_equals}}
 
 {{#if_equals current_page "credits" }}
-    {{> credits }}
+  {{> credits }}
 {{/if_equals}}
 
 {{#if_equals current_page "deposits" }}
-    {{> deposits }}
+  {{> deposits }}
 {{/if_equals}}
 
-{{#if_equals current_page "profiles" }}
-    {{> profiles }}
+{{#if_equals current_page "profile" }}
+  {{> profile }}
+{{/if_equals}}
+
+{{#if_equals current_page "login" }}
+  {{> login }}
 {{/if_equals}}
 
 {{#if_equals current_page "transactions" }}
-    {{> transactions }}
+  {{> transactions }}
 {{/if_equals}}
 
 {{#if_equals current_page "make-transaction" }}
-    {{> make_transaction }}
+  {{> make_transaction }}
 {{/if_equals}}
 
 {{> footer }}

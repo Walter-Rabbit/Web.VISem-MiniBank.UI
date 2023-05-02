@@ -1,9 +1,7 @@
-import supertokensEmailPassword from 'supertokens-node/lib/build/recipe/emailpassword';
-
 export default async function signInClicked() {
   try {
     let email = window.prompt('Enter email: ', 'example@ex.com');
-    let password = window.prompt('Enter password: ', 'qweasdzxc');
+    let password = window.prompt('Enter password: ', 'abcd1234');
 
     let response = await supertokensEmailPassword.signIn({
       formFields: [
@@ -31,7 +29,7 @@ export default async function signInClicked() {
     } else {
       // sign in successful. The session tokens are automatically handled by
       // the frontend SDK.
-      window.location.href = '/';
+      window.location.href = '/profile';
     }
   } catch (err) {
     if (err.isSuperTokensGeneralError === true) {

@@ -1,9 +1,7 @@
-import supertokensEmailPassword from 'supertokens-node/lib/build/recipe/emailpassword';
-
 export default async function signUpClicked() {
   try {
     let email = window.prompt('Enter email: ', 'example@ex.com');
-    let password = window.prompt('Enter password: ', 'qweasdzxc');
+    let password = window.prompt('Enter password: ', 'abcd1234');
 
     let response = await supertokensEmailPassword.signUp({
       formFields: [
@@ -34,6 +32,28 @@ export default async function signUpClicked() {
     } else {
       // sign up successful. The session tokens are automatically handled by
       // the frontend SDK.
+
+      let client_dto = {
+        email: email,
+        password: password,
+        name: 'default',
+        birthDate: new Date(),
+      };
+
+      await fetch('/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        mode: 'cors',
+        body: JSON.stringify(client_dto),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data.message);
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+
       window.location.href = '/';
     }
   } catch (err) {

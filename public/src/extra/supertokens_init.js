@@ -1,9 +1,4 @@
-import * as supertokens from 'supertokens-web-js';
-import * as supertokensSession from 'supertokens-web-js';
-import * as supertokensEmailPassword from 'supertokens-web-js';
-import * as Dashboard from 'supertokens-node';
-
-export default function supertokens_init() {
+export default function supertokens_init(domain) {
   supertokens.init({
     supertokens: {
       connectionURI:
@@ -11,14 +6,10 @@ export default function supertokens_init() {
       apiKey: 'ZPdG3XUsFhfvWGoEXft-lE8Q1bXvd0',
     },
     appInfo: {
-      apiDomain: process.env.DOMAIN,
+      apiDomain: domain,
       apiBasePath: '/auth',
       appName: '...',
     },
-    recipeList: [
-      supertokensSession.init(),
-      supertokensEmailPassword.init(),
-      Dashboard.init(),
-    ],
+    recipeList: [supertokensSession.init(), supertokensEmailPassword.init()],
   });
 }

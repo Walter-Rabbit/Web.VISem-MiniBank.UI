@@ -17,21 +17,10 @@ export default async function content__button__prev_page() {
   }
   ul.innerHTML = '';
 
-  let client_id = window.localStorage.getItem('client-id');
-  if (client_id == null) {
-    client_id = window.prompt(
-      'Enter client id: ',
-      '00000000-0000-0000-0000-000000000000',
-    );
-
-    window.localStorage.setItem('client-id', client_id);
-  }
-
   const take = 10;
 
   let transactions = await fetch(
     '/transactions/all-by-client' +
-      `?client-id=${client_id}` +
       `&skip-transactions=${Number(page_number) * take}` +
       `&take-transactions=${take}`,
     {
@@ -46,7 +35,6 @@ export default async function content__button__prev_page() {
 
     transactions = await fetch(
       '/transactions/all-by-client' +
-        `?client-id=${client_id}` +
         `&skip-transactions=${Number(page_number) * take}` +
         `&take-transactions=${take}`,
       {

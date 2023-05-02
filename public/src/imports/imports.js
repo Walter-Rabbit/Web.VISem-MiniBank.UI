@@ -6,6 +6,9 @@ import navigation_list__button from '../blocks/navigation_list/__button/navigati
 import make_transaction__button__commit from '../blocks/make_transaction/__button/make_transaction__button__commit';
 import content__button__next_page from '../blocks/content/__buttons/__button/content__button__next_page';
 import content__button__prev_page from '../blocks/content/__buttons/__button/content__button__prev_page';
+import supertokens_init from '../extra/supertokens_init';
+import signInClicked from '../extra/sign_in';
+import signUpClicked from '../extra/sign_up';
 
 cards__cards_list();
 content__item_list__transactions();

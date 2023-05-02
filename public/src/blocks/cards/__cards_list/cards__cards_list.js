@@ -6,46 +6,27 @@ export default function cards__cards_list() {
       return;
     }
 
-    let client_id = window.localStorage.getItem('client-id');
-    if (client_id == null) {
-      client_id = window.prompt(
-        'Enter client id: ',
-        '00000000-0000-0000-0000-000000000000',
-      );
-
-      window.localStorage.setItem('client-id', client_id);
-    }
-
     let cards_list = document.getElementById('main_page_cards');
 
-    let cards = await fetch(
-      '/accounts/get-all-by-client' + '?client-id=' + client_id,
-      {
-        method: 'GET',
-      },
-    )
+    let cards = await fetch('/accounts/get-all-by-client', {
+      method: 'GET',
+    })
       .then((response) => response.text())
       .then((text) => JSON.parse(text));
 
     applyCards(cards, 'Счёт', cards_list);
 
-    cards = await fetch(
-      '/credits/get-all-by-client' + '?client-id=' + client_id,
-      {
-        method: 'GET',
-      },
-    )
+    cards = await fetch('/credits/get-all-by-client', {
+      method: 'GET',
+    })
       .then((response) => response.text())
       .then((text) => JSON.parse(text));
 
     applyCards(cards, 'Кредит', cards_list);
 
-    cards = await fetch(
-      '/deposits/get-all-by-client' + '?client-id=' + client_id,
-      {
-        method: 'GET',
-      },
-    )
+    cards = await fetch('/deposits/get-all-by-client', {
+      method: 'GET',
+    })
       .then((response) => response.text())
       .then((text) => JSON.parse(text));
 

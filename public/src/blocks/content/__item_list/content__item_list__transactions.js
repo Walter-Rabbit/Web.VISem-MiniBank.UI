@@ -6,16 +6,6 @@ export default function content__item_list__transactions() {
       return;
     }
 
-    let client_id = window.localStorage.getItem('client-id');
-    if (client_id == null) {
-      client_id = window.prompt(
-        'Enter client id: ',
-        '00000000-0000-0000-0000-000000000000',
-      );
-
-      window.localStorage.setItem('client-id', client_id);
-    }
-
     const take = 10;
     let page_number = window.localStorage.getItem('transaction-page-number');
     if (page_number == null) {
@@ -25,7 +15,6 @@ export default function content__item_list__transactions() {
 
     let transactions = await fetch(
       '/transactions/all-by-client' +
-        `?client-id=${client_id}` +
         `&skip-transactions=${Number(page_number) * take}` +
         `&take-transactions=${take}`,
       {
@@ -41,7 +30,6 @@ export default function content__item_list__transactions() {
 
       transactions = await fetch(
         '/transactions/all-by-client' +
-          `?client-id=${client_id}` +
           `&skip-transactions=${Number(page_number) * take}` +
           `&take-transactions=${take}`,
         {
