@@ -7,10 +7,14 @@ import {
   Query,
   Patch,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { DepositsService } from './deposits.sercvice';
 import { DepositDto } from './dto/depositDto';
+import { AuthGuard } from '../../auth/auth/auth.guard';
+import { Session } from '../../auth/session/session.decorator';
+import { SessionContainer } from 'supertokens-node/recipe/session';
 
 @ApiTags('deposits')
 @Controller('deposits')
@@ -38,20 +42,18 @@ export class DepositsController {
     description: 'Internal error.',
   })
   @Post()
+  @UseGuards(new AuthGuard())
   async create(
     @Body() depositDto: DepositDto,
-    @Headers('token') token: string,
+    @Session() session: SessionContainer,
   ): Promise<string | any> {
-    if (
-      depositDto.ownerId == null ||
-      depositDto.descriptionId == null ||
-      depositDto.serviceEndDate == null
-    ) {
+    if (depositDto.descriptionId == null || depositDto.serviceEndDate == null) {
       return {
         statusCode: 400,
         description: 'One of fields is null.',
       };
     }
+    depositDto.ownerId = session.getUserId();
 
     return this.depositsService.create(depositDto);
   }
@@ -80,9 +82,10 @@ export class DepositsController {
     description: 'Internal error.',
   })
   @Get('get')
+  @UseGuards(new AuthGuard())
   async get(
     @Query('id') id: string,
-    @Headers('token') token: string,
+    @Session() session: SessionContainer,
   ): Promise<DepositDto> {
     return this.depositsService.get(id);
   }
@@ -109,11 +112,11 @@ export class DepositsController {
     description: 'Internal error.',
   })
   @Get('get-all-by-client')
+  @UseGuards(new AuthGuard())
   async getAllByClient(
-    @Query('client-id') clientId: string,
-    @Headers('token') token: string,
+    @Session() session: SessionContainer,
   ): Promise<DepositDto[]> {
-    return this.depositsService.getAllByClient(clientId);
+    return this.depositsService.getAllByClient(session.getUserId());
   }
 
   @ApiOperation({

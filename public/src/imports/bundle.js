@@ -10,46 +10,27 @@ function cards__cards_list() {
       return;
     }
 
-    let client_id = window.localStorage.getItem('client-id');
-    if (client_id == null) {
-      client_id = window.prompt(
-        'Enter client id: ',
-        '00000000-0000-0000-0000-000000000000',
-      );
-
-      window.localStorage.setItem('client-id', client_id);
-    }
-
     let cards_list = document.getElementById('main_page_cards');
 
-    let cards = await fetch(
-      '/accounts/get-all-by-client' + '?client-id=' + client_id,
-      {
-        method: 'GET',
-      },
-    )
+    let cards = await fetch('/accounts/get-all-by-client', {
+      method: 'GET',
+    })
       .then((response) => response.text())
       .then((text) => JSON.parse(text));
 
     applyCards(cards, 'Счёт', cards_list);
 
-    cards = await fetch(
-      '/credits/get-all-by-client' + '?client-id=' + client_id,
-      {
-        method: 'GET',
-      },
-    )
+    cards = await fetch('/credits/get-all-by-client', {
+      method: 'GET',
+    })
       .then((response) => response.text())
       .then((text) => JSON.parse(text));
 
     applyCards(cards, 'Кредит', cards_list);
 
-    cards = await fetch(
-      '/deposits/get-all-by-client' + '?client-id=' + client_id,
-      {
-        method: 'GET',
-      },
-    )
+    cards = await fetch('/deposits/get-all-by-client', {
+      method: 'GET',
+    })
       .then((response) => response.text())
       .then((text) => JSON.parse(text));
 
@@ -78,10 +59,15 @@ function cards__cards_list() {
       image.src = '../../img/place_holder_card.png';
       card.append(image);
 
-      let div_type = document.createElement('div');
+      /*let div_type = document.createElement('div');
       div_type.className = 'card__type';
       div_type.textContent = type;
-      card.append(div_type);
+      card.append(div_type);*/
+
+      let div_id = document.createElement('div');
+      div_id.className = 'card__type';
+      div_id.textContent = c['id'];
+      card.append(div_id);
 
       li.append(card);
       cards_list.append(li);
@@ -98,16 +84,6 @@ function content__item_list__transactions() {
       return;
     }
 
-    let client_id = window.localStorage.getItem('client-id');
-    if (client_id == null) {
-      client_id = window.prompt(
-        'Enter client id: ',
-        '00000000-0000-0000-0000-000000000000',
-      );
-
-      window.localStorage.setItem('client-id', client_id);
-    }
-
     const take = 10;
     let page_number = window.localStorage.getItem('transaction-page-number');
     if (page_number == null) {
@@ -117,7 +93,6 @@ function content__item_list__transactions() {
 
     let transactions = await fetch(
       '/transactions/all-by-client' +
-        `?client-id=${client_id}` +
         `&skip-transactions=${Number(page_number) * take}` +
         `&take-transactions=${take}`,
       {
@@ -133,7 +108,6 @@ function content__item_list__transactions() {
 
       transactions = await fetch(
         '/transactions/all-by-client' +
-          `?client-id=${client_id}` +
           `&skip-transactions=${Number(page_number) * take}` +
           `&take-transactions=${take}`,
         {
@@ -210,19 +184,8 @@ function history__history_list() {
 
     let history_list = document.getElementById('main_page_history');
 
-    let client_id = window.localStorage.getItem('client-id');
-    if (client_id == null) {
-      client_id = window.prompt(
-        'Enter client id: ',
-        '00000000-0000-0000-0000-000000000000',
-      );
-
-      window.localStorage.setItem('client-id', client_id);
-    }
-
     let transactions = await fetch(
       '/transactions/all-by-client' +
-        `?client-id=${client_id}` +
         '&skip-transactions=0' +
         '&take-transactions=10',
       {
@@ -294,6 +257,40 @@ function navigation_list__button() {
   });
 }
 
+;// CONCATENATED MODULE: ./public/src/blocks/content/__item_list/content__item_list__profile.js
+function content__item_list__profile() {
+  window.addEventListener('load', async function () {
+    let div = document.getElementById('profile_page');
+
+    if (div == null) {
+      return;
+    }
+
+    let user = await fetch('/users', {
+      method: 'GET',
+    })
+      .then((response) => response.text())
+      .then((text) => JSON.parse(text));
+
+    div.className = 'item';
+
+    let p_name = document.createElement('p');
+    p_name.className = 'item__title';
+    p_name.textContent = user['name'];
+    div.append(p_name);
+
+    let p_email = document.createElement('p');
+    p_email.className = 'item__description';
+    p_email.textContent = user['email'];
+    div.append(p_email);
+
+    let p_date = document.createElement('p');
+    p_date.className = 'item__date';
+    p_date.textContent = user['birthDate'];
+    div.append(p_date);
+  });
+}
+
 ;// CONCATENATED MODULE: ./public/src/blocks/make_transaction/__button/make_transaction__button__commit.js
 async function make_transaction__button__commit() {
   let sender_product_id = window.prompt(
@@ -358,21 +355,10 @@ async function content__button__next_page() {
   }
   ul.innerHTML = '';
 
-  let client_id = window.localStorage.getItem('client-id');
-  if (client_id == null) {
-    client_id = window.prompt(
-      'Enter client id: ',
-      '00000000-0000-0000-0000-000000000000',
-    );
-
-    window.localStorage.setItem('client-id', client_id);
-  }
-
   const take = 10;
 
   let transactions = await fetch(
     '/transactions/all-by-client' +
-      `?client-id=${client_id}` +
       `&skip-transactions=${Number(page_number) * take}` +
       `&take-transactions=${take}`,
     {
@@ -388,7 +374,6 @@ async function content__button__next_page() {
 
     transactions = await fetch(
       '/transactions/all-by-client' +
-        `?client-id=${client_id}` +
         `&skip-transactions=${Number(page_number) * take}` +
         `&take-transactions=${take}`,
       {
@@ -454,21 +439,10 @@ async function content__button__prev_page() {
   }
   ul.innerHTML = '';
 
-  let client_id = window.localStorage.getItem('client-id');
-  if (client_id == null) {
-    client_id = window.prompt(
-      'Enter client id: ',
-      '00000000-0000-0000-0000-000000000000',
-    );
-
-    window.localStorage.setItem('client-id', client_id);
-  }
-
   const take = 10;
 
   let transactions = await fetch(
     '/transactions/all-by-client' +
-      `?client-id=${client_id}` +
       `&skip-transactions=${Number(page_number) * take}` +
       `&take-transactions=${take}`,
     {
@@ -483,7 +457,6 @@ async function content__button__prev_page() {
 
     transactions = await fetch(
       '/transactions/all-by-client' +
-        `?client-id=${client_id}` +
         `&skip-transactions=${Number(page_number) * take}` +
         `&take-transactions=${take}`,
       {
@@ -529,6 +502,164 @@ async function content__button__prev_page() {
   }
 }
 
+;// CONCATENATED MODULE: ./public/src/extra/supertokens_init.js
+function supertokens_init(domain) {
+  supertokens.init({
+    supertokens: {
+      connectionURI:
+        'https://dev-3fee4971e81d11edb88efb40042c40db-eu-west-1.aws.supertokens.io:3572',
+      apiKey: 'ZPdG3XUsFhfvWGoEXft-lE8Q1bXvd0',
+    },
+    appInfo: {
+      apiDomain: domain,
+      apiBasePath: '/auth',
+      appName: '...',
+    },
+    recipeList: [supertokensSession.init(), supertokensEmailPassword.init()],
+  });
+}
+
+;// CONCATENATED MODULE: ./public/src/blocks/item/item__sign_in.js
+async function item__sign_in() {
+  try {
+    let email = window.prompt('Enter email: ', 'example@ex.com');
+    let password = window.prompt('Enter password: ', 'abcd1234');
+
+    let response = await supertokensEmailPassword.signIn({
+      formFields: [
+        {
+          id: 'email',
+          value: email,
+        },
+        {
+          id: 'password',
+          value: password,
+        },
+      ],
+    });
+
+    if (response.status === 'FIELD_ERROR') {
+      // one of the input formFields failed validaiton
+      response.formFields.forEach((formField) => {
+        if (formField.id === 'email') {
+          // Email validation failed (for example incorrect email syntax).
+          window.alert(formField.error);
+        }
+      });
+    } else if (response.status === 'WRONG_CREDENTIALS_ERROR') {
+      window.alert('Email password combination is incorrect.');
+    } else {
+      // sign in successful. The session tokens are automatically handled by
+      // the frontend SDK.
+      window.location.href = '/profile';
+    }
+  } catch (err) {
+    if (err.isSuperTokensGeneralError === true) {
+      // this may be a custom error message sent from the API by you.
+      window.alert(err.message);
+    } else {
+      window.alert('Oops! Something went wrong.');
+    }
+  }
+}
+
+;// CONCATENATED MODULE: ./public/src/blocks/item/item__sign_up.js
+async function item__sign_up() {
+  try {
+    let email = window.prompt('Enter email: ', 'example@ex.com');
+    let password = window.prompt('Enter password: ', 'abcd1234');
+
+    let response = await supertokensEmailPassword.signUp({
+      formFields: [
+        {
+          id: 'email',
+          value: email,
+        },
+        {
+          id: 'password',
+          value: password,
+        },
+      ],
+    });
+
+    if (response.status === 'FIELD_ERROR') {
+      // one of the input formFields failed validaiton
+      response.formFields.forEach((formField) => {
+        if (formField.id === 'email') {
+          // Email validation failed (for example incorrect email syntax),
+          // or the email is not unique.
+          window.alert(formField.error);
+        } else if (formField.id === 'password') {
+          // Password validation failed.
+          // Maybe it didn't match the password strength
+          window.alert(formField.error);
+        }
+      });
+    } else {
+      // sign up successful. The session tokens are automatically handled by
+      // the frontend SDK.
+
+      let client_dto = {
+        email: email,
+        password: password,
+        name: 'default',
+        birthDate: new Date(),
+      };
+
+      await fetch('/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        mode: 'cors',
+        body: JSON.stringify(client_dto),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data.message);
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+
+      window.location.href = '/profile';
+    }
+  } catch (err) {
+    if (err.isSuperTokensGeneralError === true) {
+      // this may be a custom error message sent from the API by you.
+      window.alert(err.message);
+    } else {
+      window.alert('Oops! Something went wrong.');
+    }
+  }
+}
+
+;// CONCATENATED MODULE: ./public/src/blocks/item/item__create_account.js
+async function item__create_account() {
+  let account_dto = {
+    id: '',
+    descriptionId: '81be05af-183e-4fc8-bdcc-0d2cf7946e6a',
+    ownerId: '',
+    amount: 1000,
+    serviceEndDate: new Date(),
+  };
+
+  await fetch('/accounts', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    mode: 'cors',
+    body: JSON.stringify(account_dto),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data.message);
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+
+  alert('Счёт создан');
+  window.location.href();
+}
+
 ;// CONCATENATED MODULE: ./public/src/imports/imports.js
 
 
@@ -539,7 +670,13 @@ async function content__button__prev_page() {
 
 
 
+
+
+
+
+
 cards__cards_list();
+content__item_list__profile();
 content__item_list__transactions();
 footer__loading_time();
 history__history_list();

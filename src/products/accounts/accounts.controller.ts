@@ -2,15 +2,18 @@ import {
   Controller,
   Post,
   Body,
-  Headers,
   Get,
   Query,
   Patch,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AccountsService } from './accounts.sercvice';
 import { AccountDto } from './dto/accountDto';
+import { Session } from '../../auth/session/session.decorator';
+import { AuthGuard } from '../../auth/auth/auth.guard';
+import { SessionContainer } from 'supertokens-node/recipe/session';
 
 @ApiTags('accounts')
 @Controller('accounts')
@@ -38,20 +41,18 @@ export class AccountsController {
     description: 'Internal error.',
   })
   @Post()
+  @UseGuards(new AuthGuard())
   async create(
     @Body() accountDto: AccountDto,
-    @Headers('token') token: string,
+    @Session() session: SessionContainer,
   ): Promise<string | any> {
-    if (
-      accountDto.ownerId == null ||
-      accountDto.descriptionId == null ||
-      accountDto.serviceEndDate == null
-    ) {
+    if (accountDto.descriptionId == null || accountDto.serviceEndDate == null) {
       return {
         statusCode: 400,
         description: 'One of fields is null.',
       };
     }
+    accountDto.ownerId = session.getUserId();
 
     return this.accountsService.create(accountDto);
   }
@@ -80,11 +81,9 @@ export class AccountsController {
     description: 'Internal error.',
   })
   @Get('get')
-  async get(
-    @Query('id') id: string,
-    @Headers('token') token: string,
-  ): Promise<AccountDto> {
-    return this.accountsService.get(id);
+  @UseGuards(new AuthGuard())
+  async get(@Session() session: SessionContainer): Promise<AccountDto> {
+    return this.accountsService.get(session.getUserId());
   }
 
   @ApiOperation({
@@ -109,11 +108,11 @@ export class AccountsController {
     description: 'Internal error.',
   })
   @Get('get-all-by-client')
+  @UseGuards(new AuthGuard())
   async getAllByClient(
-    @Query('client-id') clientId: string,
-    @Headers('token') token: string,
+    @Session() session: SessionContainer,
   ): Promise<AccountDto[]> {
-    return this.accountsService.getAllByClient(clientId);
+    return this.accountsService.getAllByClient(session.getUserId());
   }
 
   @ApiOperation({
@@ -136,10 +135,12 @@ export class AccountsController {
     description: 'Internal error.',
   })
   @Patch()
+  @UseGuards(new AuthGuard())
   async update(
     @Body() accountDto: AccountDto,
-    @Headers('token') token: string,
+    @Session() session: SessionContainer,
   ): Promise<void> {
+    accountDto.ownerId = session.getUserId();
     return this.accountsService.update(accountDto);
   }
 
@@ -163,9 +164,10 @@ export class AccountsController {
     description: 'Internal error.',
   })
   @Delete()
+  @UseGuards(new AuthGuard())
   async delete(
     @Query('id') id: string,
-    @Headers('token') token: string,
+    @Session() session: SessionContainer,
   ): Promise<void> {
     return this.accountsService.delete(id);
   }

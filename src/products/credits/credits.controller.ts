@@ -7,11 +7,15 @@ import {
   Query,
   Patch,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreditsService } from './credits.sercvice';
 import { CreditDto } from './dto/creditDto';
 import { AccountDto } from '../accounts/dto/accountDto';
+import { AuthGuard } from '../../auth/auth/auth.guard';
+import { Session } from '../../auth/session/session.decorator';
+import { SessionContainer } from 'supertokens-node/recipe/session';
 
 @ApiTags('credits')
 @Controller('credits')
@@ -39,20 +43,18 @@ export class CreditsController {
     description: 'Internal error.',
   })
   @Post()
+  @UseGuards(new AuthGuard())
   async create(
     @Body() creditDto: CreditDto,
-    @Headers('token') token: string,
+    @Session() session: SessionContainer,
   ): Promise<string | any> {
-    if (
-      creditDto.ownerId == null ||
-      creditDto.descriptionId == null ||
-      creditDto.serviceEndDate == null
-    ) {
+    if (creditDto.descriptionId == null || creditDto.serviceEndDate == null) {
       return {
         statusCode: 400,
         description: 'One of fields is null.',
       };
     }
+    creditDto.ownerId = session.getUserId();
 
     return this.creditsService.create(creditDto);
   }
@@ -81,9 +83,10 @@ export class CreditsController {
     description: 'Internal error.',
   })
   @Get('get')
+  @UseGuards(new AuthGuard())
   async get(
     @Query('id') id: string,
-    @Headers('token') token: string,
+    @Session() session: SessionContainer,
   ): Promise<CreditDto> {
     return this.creditsService.get(id);
   }
@@ -110,11 +113,11 @@ export class CreditsController {
     description: 'Internal error.',
   })
   @Get('get-all-by-client')
+  @UseGuards(new AuthGuard())
   async getAllByClient(
-    @Query('client-id') clientId: string,
-    @Headers('token') token: string,
+    @Session() session: SessionContainer,
   ): Promise<CreditDto[]> {
-    return this.creditsService.getAllByClient(clientId);
+    return this.creditsService.getAllByClient(session.getUserId());
   }
 
   @ApiOperation({

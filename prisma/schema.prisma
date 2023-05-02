@@ -15,17 +15,10 @@ model Client {
   name            String
   email           String    @unique
   birthDate       DateTime
-  encodedPassword String
+  password        String
   accounts        Account[]
   credits         Credit[]
   deposits        Deposit[]
-}
-
-model Admin {
-  id              String    @id @unique
-  name            String
-  email           String
-  encodedPassword String
 }
 
 model Transaction {

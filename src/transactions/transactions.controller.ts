@@ -1,8 +1,19 @@
-import { Controller, Post, Body, Headers, Get, Query } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Headers,
+  Get,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { TransactionsService } from './transactions.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { TransactionDto } from './dto/transactionDto';
 import { MakeTransactionDto } from './dto/makeTransactionDto';
+import { AuthGuard } from '../auth/auth/auth.guard';
+import { Session } from '../auth/session/session.decorator';
+import { SessionContainer } from 'supertokens-node/recipe/session';
 
 @ApiTags('transactions')
 @Controller('transactions')
@@ -31,9 +42,10 @@ export class TransactionsController {
     description: 'Internal error.',
   })
   @Post()
+  @UseGuards(new AuthGuard())
   async create(
     @Body() makeTransactionDto: MakeTransactionDto,
-    @Headers('token') token: string,
+    @Session() session: SessionContainer,
   ): Promise<string | any> {
     try {
       return this.transactionsService.create(makeTransactionDto);
@@ -67,9 +79,10 @@ export class TransactionsController {
     description: 'Internal error.',
   })
   @Get()
+  @UseGuards(new AuthGuard())
   async get(
     @Query('id') transactionId: string,
-    @Headers('token') token: string,
+    @Session() session: SessionContainer,
   ): Promise<TransactionDto> {
     return this.transactionsService.get(transactionId);
   }
@@ -97,12 +110,16 @@ export class TransactionsController {
     description: 'Internal error.',
   })
   @Get('all-by-client')
+  @UseGuards(new AuthGuard())
   async getAllByClient(
-    @Query('client-id') clientId: string,
     @Query('skip-transactions') skip: number,
     @Query('take-transactions') take: number,
-    @Headers('token') token: string,
+    @Session() session: SessionContainer,
   ): Promise<TransactionDto[]> {
-    return this.transactionsService.getAllByClient(clientId, skip, take);
+    return this.transactionsService.getAllByClient(
+      session.getUserId(),
+      skip,
+      take,
+    );
   }
 }

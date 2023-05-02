@@ -1,18 +1,34 @@
-import { Controller, Get, Render, UseInterceptors } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Render,
+  UseGuards,
+  UseInterceptors,
+} from '@nestjs/common';
 import { AppService } from './app.service';
 import { LoadTimeInterceptor } from './interceptors/loadTimeInterceptor';
+import { DomainUrlInterceptor } from './interceptors/domainUrlInterceptor';
 import { ApiExcludeController } from '@nestjs/swagger';
+import { AuthGuard } from './auth/auth/auth.guard';
+import { Session } from './auth/session/session.decorator';
+import { SessionContainer } from 'supertokens-node/recipe/session';
 
 @ApiExcludeController()
 @Controller()
-@UseInterceptors(LoadTimeInterceptor)
+@UseInterceptors(LoadTimeInterceptor, DomainUrlInterceptor)
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
   @Render('index')
-  index() {
-    const current_page = 'main_page';
+  @UseGuards(new AuthGuard({ sessionRequired: false }))
+  index(@Session() session: SessionContainer) {
+    let current_page = '';
+    if (session == null) {
+      current_page = 'login';
+    } else {
+      current_page = 'main_page';
+    }
     return { current_page };
   }
 
@@ -44,24 +60,53 @@ export class AppController {
     return { current_page };
   }
 
-  @Get('profiles')
+  @Get('profile')
   @Render('index')
-  profiles() {
-    const current_page = 'profiles';
+  @UseGuards(new AuthGuard({ sessionRequired: false }))
+  profiles(@Session() session: SessionContainer) {
+    let current_page = '';
+
+    if (session == null) {
+      current_page = 'login';
+    } else {
+      current_page = 'profile';
+    }
+    return { current_page };
+  }
+
+  @Get('login')
+  @Render('index')
+  login() {
+    const current_page = 'login';
     return { current_page };
   }
 
   @Get('transactions')
   @Render('index')
-  transactions() {
-    const current_page = 'transactions';
+  @UseGuards(new AuthGuard({ sessionRequired: false }))
+  transactions(@Session() session: SessionContainer) {
+    let current_page = '';
+
+    if (session == null) {
+      current_page = 'login';
+    } else {
+      current_page = 'transactions';
+    }
     return { current_page };
   }
 
   @Get('make-transaction')
   @Render('index')
-  makeTransaction() {
-    const current_page = 'make-transaction';
+  @UseGuards(new AuthGuard({ sessionRequired: false }))
+  makeTransaction(@Session() session: SessionContainer) {
+    let current_page = '';
+
+    if (session == null) {
+      current_page = 'login';
+    } else {
+      current_page = 'make-transaction';
+    }
+
     return { current_page };
   }
 }

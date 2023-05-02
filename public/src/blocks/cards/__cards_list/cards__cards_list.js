@@ -6,46 +6,27 @@ export default function cards__cards_list() {
       return;
     }
 
-    let client_id = window.localStorage.getItem('client-id');
-    if (client_id == null) {
-      client_id = window.prompt(
-        'Enter client id: ',
-        '00000000-0000-0000-0000-000000000000',
-      );
-
-      window.localStorage.setItem('client-id', client_id);
-    }
-
     let cards_list = document.getElementById('main_page_cards');
 
-    let cards = await fetch(
-      '/accounts/get-all-by-client' + '?client-id=' + client_id,
-      {
-        method: 'GET',
-      },
-    )
+    let cards = await fetch('/accounts/get-all-by-client', {
+      method: 'GET',
+    })
       .then((response) => response.text())
       .then((text) => JSON.parse(text));
 
     applyCards(cards, 'Счёт', cards_list);
 
-    cards = await fetch(
-      '/credits/get-all-by-client' + '?client-id=' + client_id,
-      {
-        method: 'GET',
-      },
-    )
+    cards = await fetch('/credits/get-all-by-client', {
+      method: 'GET',
+    })
       .then((response) => response.text())
       .then((text) => JSON.parse(text));
 
     applyCards(cards, 'Кредит', cards_list);
 
-    cards = await fetch(
-      '/deposits/get-all-by-client' + '?client-id=' + client_id,
-      {
-        method: 'GET',
-      },
-    )
+    cards = await fetch('/deposits/get-all-by-client', {
+      method: 'GET',
+    })
       .then((response) => response.text())
       .then((text) => JSON.parse(text));
 
@@ -74,10 +55,15 @@ export default function cards__cards_list() {
       image.src = '../../img/place_holder_card.png';
       card.append(image);
 
-      let div_type = document.createElement('div');
+      /*let div_type = document.createElement('div');
       div_type.className = 'card__type';
       div_type.textContent = type;
-      card.append(div_type);
+      card.append(div_type);*/
+
+      let div_id = document.createElement('div');
+      div_id.className = 'card__type';
+      div_id.textContent = c['id'];
+      card.append(div_id);
 
       li.append(card);
       cards_list.append(li);
