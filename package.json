@@ -23,9 +23,9 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "env-linux": "export $(cat .env | xargs) && env",
-    "start-linux": "export $(cat .env | xargs) && npm start",
+    "start-linux": "npx prisma migrate dev --name init && export $(cat .env | xargs) && npm start",
     "env-windows": "(for /F \"tokens=*\" %i in (.env) do set %i)",
-    "start-windows": "(for /F \"tokens=*\" %i in (.env) do set %i) && nest start"
+    "start-windows": "npx prisma migrate dev --name init && (for /F \"tokens=*\" %i in (.env) do set %i) && nest start"
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
